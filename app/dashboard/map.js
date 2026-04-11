@@ -40,7 +40,7 @@ function MarkerMap({data, onPortOpenClick, onPortCloseClick}){
                 id={`simple-tabpanel-${index}`}
                 aria-labelledby={`simple-tab-${index}`}
                 {...other}
-                style={{backgroundColor: "#f2f2f2"}}
+                style={{backgroundColor: "#f2f2f2", flex: 1}}
             >
                 {value === index && <Box pb={4}>{children}</Box>}
             </div>
@@ -128,8 +128,8 @@ function MarkerMap({data, onPortOpenClick, onPortCloseClick}){
                             />
                         </Box>
                     </Box>
-                    <Stack mb={3} direction={'column'} gap={2} sx={{bgcolor: "white"}}>
-                        <Box className="info_box" gap={1} mx={2} p={3} sx={{borderRadius: 4}}>
+                    <Stack mb={3} direction={'column'} gap={2}>
+                        <Box className="info_box" gap={1} mx={2} p={3} sx={{borderRadius: 4, bgcolor: "white"}}>
                             <Typography variant="body1" className="label">Today's Traffic</Typography>
                             <Stack direction={'row'} gap={1}>
                                 <Stack flex={1} direction={'column'} p={2} sx={{borderRadius: 4, bgcolor: 'primary.main'}}>
@@ -260,51 +260,51 @@ function MarkerMap({data, onPortOpenClick, onPortCloseClick}){
                 <CustomTabPanel value={tabVal} index={2}>
                     <Stack direction={'column'} gap={2} p={3}>
                         <Stack direction={'column'} gap={1} p={2} sx={{bgcolor: 'primary.main', borderRadius: 4}}>
-                            <Stack direction={'column'} className="info_dot">
+                            <Stack direction={'column'} className=" white">
                                 <Typography variant="body1" color="white">Parola Ferry Terminal</Typography>
                                 <Typography variant="body2" color="white">Parola Ferry Terminal, Iloilo City</Typography>
                             </Stack>
-                            <Stack direction={'column'} className="info_dot">
+                            <Stack direction={'column'} className="info_dot white">
                                 <Typography variant="body1" color="white">Jordan Wharf</Typography>
                                 <Typography variant="body2" color="white">Jordan Wharf, Jordan, Guimaras</Typography>
                             </Stack>
                         </Stack>
                         <Stack direction={'column'} gap={1} p={2} sx={{bgcolor: 'primary.main', borderRadius: 4}}>
-                            <Stack direction={'column'} className="info_dot">
+                            <Stack direction={'column'} className="info_dot white">
                                 <Typography variant="body1" color="white">Parola Ferry Terminal</Typography>
                                 <Typography variant="body2" color="white">Parola Ferry Terminal, Iloilo City</Typography>
                             </Stack>
-                            <Stack direction={'column'} className="info_dot">
+                            <Stack direction={'column'} className="info_dot white">
                                 <Typography variant="body1" color="white">Jordan Wharf</Typography>
                                 <Typography variant="body2" color="white">Jordan Wharf, Jordan, Guimaras</Typography>
                             </Stack>
                         </Stack>
                         <Stack direction={'column'} gap={1} p={2} sx={{bgcolor: 'primary.main', borderRadius: 4}}>
-                            <Stack direction={'column'} className="info_dot">
+                            <Stack direction={'column'} className="info_dot white">
                                 <Typography variant="body1" color="white">Parola Ferry Terminal</Typography>
                                 <Typography variant="body2" color="white">Parola Ferry Terminal, Iloilo City</Typography>
                             </Stack>
-                            <Stack direction={'column'} className="info_dot">
+                            <Stack direction={'column'} className="info_dot white">
                                 <Typography variant="body1" color="white">Jordan Wharf</Typography>
                                 <Typography variant="body2" color="white">Jordan Wharf, Jordan, Guimaras</Typography>
                             </Stack>
                         </Stack>
                         <Stack direction={'column'} gap={1} p={2} sx={{bgcolor: 'primary.main', borderRadius: 4}}>
-                            <Stack direction={'column'} className="info_dot">
+                            <Stack direction={'column'} className="info_dot white">
                                 <Typography variant="body1" color="white">Parola Ferry Terminal</Typography>
                                 <Typography variant="body2" color="white">Parola Ferry Terminal, Iloilo City</Typography>
                             </Stack>
-                            <Stack direction={'column'} className="info_dot">
+                            <Stack direction={'column'} className="info_dot white">
                                 <Typography variant="body1" color="white">Jordan Wharf</Typography>
                                 <Typography variant="body2" color="white">Jordan Wharf, Jordan, Guimaras</Typography>
                             </Stack>
                         </Stack>
                         <Stack direction={'column'} gap={1} p={2} sx={{bgcolor: 'primary.main', borderRadius: 4}}>
-                            <Stack direction={'column'} className="info_dot">
+                            <Stack direction={'column'} className="info_dot white">
                                 <Typography variant="body1" color="white">Parola Ferry Terminal</Typography>
                                 <Typography variant="body2" color="white">Parola Ferry Terminal, Iloilo City</Typography>
                             </Stack>
-                            <Stack direction={'column'} className="info_dot">
+                            <Stack direction={'column'} className="info_dot white">
                                 <Typography variant="body1" color="white">Jordan Wharf</Typography>
                                 <Typography variant="body2" color="white">Jordan Wharf, Jordan, Guimaras</Typography>
                             </Stack>
