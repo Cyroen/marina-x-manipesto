@@ -60,9 +60,109 @@ function MarkerMap({data, onPortOpenClick, onPortCloseClick}){
     const muiIcon = L.divIcon({
         html: renderToString(<Image src={'/images/logos/marinamarker.png'} width={32} height={32} style={{transform: 'translate(-15px, -30px)'}}></Image>),
         className: 'custom-icon', // Use this to remove default Leaflet styles
-        iconSize: [64, 64],
+        iconSize: [0, 0],
         iconAnchor: [0, 0],
     });
+
+    function TripBox({data}){
+        return <Box p={2} sx={{borderRadius: 4, boxShadow: "1px 4px 9px 4px rgba(0, 0, 0, 0.1)", bgcolor: "white"}}>
+                <Stack direction={'row'} justifyContent={'space-between'} alignItems={'center'}>
+                    <Typography variant="body1" fontWeight={'bold'}>Vessel Name</Typography>
+                    <Chip size="medium" label="100 pax" variant="contained" sx={{color: "white", bgcolor: 'primary.main'}}></Chip>
+                </Stack>
+                <Divider sx={{my: 2}}></Divider>
+                <Stack direction={'column'} gap={1}>
+                    <Stack className="info_dot" flex={1} direction={'row'} gap={1}>
+                        <Box flex={2}>
+                            <Typography variant="body1">06.05.2025</Typography>
+                            <Typography variant="subtitle2" sx={{opacity: 0.6}}>2:00 AM</Typography>
+                        </Box>
+                        <Box flex={3}>
+                            <Typography variant="body1">Arrival</Typography>
+                            <Typography variant="subtitle2" sx={{opacity: 0.6}}>{data?.arrival?.address}</Typography>
+                        </Box>
+                    </Stack>
+                    <Stack className="info_dot" flex={1} direction={'row'} gap={1}>
+                        <Box flex={2}>
+                            <Typography variant="body1">06.05.2025</Typography>
+                            <Typography variant="subtitle2" sx={{opacity: 0.6}}>2:00 AM</Typography>
+                        </Box>
+                        <Box flex={3}>
+                            <Typography variant="body1">Origin</Typography>
+                            <Typography variant="subtitle2" sx={{opacity: 0.6}}>{data?.origin?.address}</Typography>
+                        </Box>
+                    </Stack>
+                </Stack>
+                <Divider sx={{my: 2}}></Divider>
+                <Stack direction={'row'} gap={1}>
+                    <Stack direction={'row'} gap={1}>
+                        <Avatar></Avatar>
+                        <Box>
+                            <Typography variant="body1">Name Here</Typography>
+                            <Typography variant="body2">Master</Typography>
+                        </Box>
+                    </Stack>
+                    <Tooltip title="Expand" sx={{ml: 'auto'}}>
+                        <IconButton variant="contained" href={'/trip'} LinkComponent={Link}>
+                            <OpenInFull></OpenInFull>
+                        </IconButton>
+                    </Tooltip>
+                </Stack>
+            </Box>
+    }
+
+    function RouteBox({data}){
+        return (
+            <Stack direction={'column'} gap={1} p={2} sx={{bgcolor: 'primary.main', borderRadius: 4}}>
+                <Stack direction={'column'} className="info_dot white">
+                    <Typography variant="body1" color="white">{data?.arrival?.port}</Typography>
+                    <Typography variant="body2" color="white">{data?.arrival?.address}</Typography>
+                </Stack>
+                <Stack direction={'column'} className="info_dot white">
+                    <Typography variant="body1" color="white">{data?.origin?.port}</Typography>
+                    <Typography variant="body2" color="white">{data?.origin?.address}</Typography>
+                </Stack>
+            </Stack>
+        )
+    }
+
+    function OperatorBox({data}){
+        return (
+            <Stack direction={'column'}>
+                <Box position={'relative'} overflow={'hidden'} sx={{borderRadius: 4, boxShadow: "1px 4px 9px 4px rgba(0, 0, 0, 0.1)"}}>
+                        <Stack p={2} direction={'column'} gap={2} position={'relative'} overflow={'hidden'}>
+                        <Stack direction={'row'}>
+                            <Stack position={'relative'} zIndex={10} flex={1} direction={'row'} alignItems={'center'} gap={1}>
+                                <Avatar src={data?.photo}></Avatar>
+                                <Stack direction={'column'}>
+                                    <Typography variant="body1">{data?.name}</Typography>
+                                </Stack>
+                            </Stack>
+                        </Stack>
+                        <Stack direction={'row'} gap={1} className={`${data?.images?.length > 4 ? 'has_more' : ''} image_list`}>
+                            {data?.images && data?.images?.map((a, i) => {
+                                if(i>3) return;
+                                return (
+                                    <Box className={`image_container`} key={i} flex={1} overflow={'hidden'} position={'relative'} height={50}>
+                                        <Image style={{objectFit: 'cover'}} src={a ? a : '/images/placeholders/landscape.jpg'} fill alt="Placeholder"></Image>
+                                    </Box>
+                                )
+                            })}
+                        </Stack>
+                    </Stack>
+                    <Divider></Divider>
+                    <Stack px={2} py={0} direction={'row'} alignItems={'center'} justifyContent={'space-between'}>
+                        <Chip size="small" label={`${data?.vesselCount} Vessels`} variant="contained" sx={{color: "white", bgcolor: 'primary.main'}}></Chip>
+                        <Tooltip title="Show Details">
+                            <IconButton>
+                                <ChevronRight/>
+                            </IconButton>
+                        </Tooltip>
+                    </Stack>
+                </Box>
+            </Stack>
+        )
+    }
 
 
     return <Fragment>
@@ -77,14 +177,14 @@ function MarkerMap({data, onPortOpenClick, onPortCloseClick}){
                 }
             }
         }} anchor='left' variant='temporary'>
-            <Stack direction={'column'}>
+            <Stack flex={1} direction={'column'}>
                 <Stack direction={'column'} gap={2}>
                     <Box width={'100%'} height={300} position={'relative'}>
                         <Image src="/images/placeholders/landscape.jpg" fill alt="Placeholder Image">
                         </Image>
                     </Box>
                     <Stack direction={'column'} p={3}>
-                        <Typography variant="h6" component={'h1'}>
+                        <Typography fontWeight={'bold'} variant="h6" component={'h1'}>
                         {data?.portName}
                         </Typography>
                         <Typography variant="body1" component={'p'}>
@@ -108,6 +208,8 @@ function MarkerMap({data, onPortOpenClick, onPortCloseClick}){
 
                 {/* Overview */}
                 <CustomTabPanel value={tabVal} index={0}>
+
+                    {/* Chart */}
                     <Box mx={2} my={3} className="info_box" sx={{borderRadius: 4, bgcolor: "white"}}>
                         <Typography variant="body1" className="label">Passenger Traffic</Typography>
                         <Box pt={4} pb={2}>
@@ -128,6 +230,8 @@ function MarkerMap({data, onPortOpenClick, onPortCloseClick}){
                             />
                         </Box>
                     </Box>
+
+                    {/* Today's Traffic */}
                     <Stack mb={3} direction={'column'} gap={2}>
                         <Box className="info_box" gap={1} mx={2} p={3} sx={{borderRadius: 4, bgcolor: "white"}}>
                             <Typography variant="body1" className="label">Today's Traffic</Typography>
@@ -144,6 +248,8 @@ function MarkerMap({data, onPortOpenClick, onPortCloseClick}){
                             <Typography textAlign={'right'} variant="subtitle2">as of April 09, 2026 01:17 PM</Typography>
                         </Box>
                     </Stack>
+
+                    {/* Recent Trips */}
                     <Stack direction={'column'} gap={3} pt={5} pb={2} px={3} className="info_box" sx={{borderRadius: 4, bgcolor: "white"}} mx={2}>
                         <Typography variant="body1" className="label">Recent Trips</Typography>
                         <Box className="info_box no_border" sx={{bgcolor: 'primary.main'}} p={2} borderRadius={2} gap={1}>
@@ -158,10 +264,10 @@ function MarkerMap({data, onPortOpenClick, onPortCloseClick}){
                                 </Stack>
                                 
                             </Stack>
-                            <Stack direction={'column'} gap={0} className="info_dot">
+                            <Stack direction={'column'} gap={0} className="info_dot white">
                                 <Typography color="white" variant="body2">{data?.arrival?.origin}</Typography>
                             </Stack>
-                            <Stack direction={'column'} gap={0} className="info_dot">
+                            <Stack direction={'column'} gap={0} className="info_dot white">
                                 <Typography color="white" variant="body2">{data?.arrival?.arrival}</Typography>
                             </Stack>
                             <Divider flexItem></Divider>
@@ -186,10 +292,10 @@ function MarkerMap({data, onPortOpenClick, onPortCloseClick}){
                                 </Stack>
                                 
                             </Stack>
-                            <Stack  direction={'column'} gap={0} className="info_dot">
+                            <Stack  direction={'column'} gap={0} className="info_dot white">
                                 <Typography color="white" variant="body2">{data?.departure?.origin}</Typography>
                             </Stack>
-                            <Stack direction={'column'} gap={0} className="info_dot">
+                            <Stack direction={'column'} gap={0} className="info_dot white">
                                 <Typography color="white" variant="body2">{data?.departure?.arrival}</Typography>
                             </Stack>
                             <Divider flexItem></Divider>
@@ -209,302 +315,27 @@ function MarkerMap({data, onPortOpenClick, onPortCloseClick}){
                 {/* Trip List */}
                 <CustomTabPanel value={tabVal} index={1}>
                     <Stack p={3} direction={'column'} gap={2}>
-                        <Box p={2} sx={{borderRadius: 4, boxShadow: "1px 4px 9px 4px rgba(0, 0, 0, 0.1)", bgcolor: "white"}}>
-                            <Stack direction={'row'} justifyContent={'space-between'} alignItems={'center'}>
-                                <Typography variant="body1" fontWeight={'bold'}>Vessel Name</Typography>
-                                <Chip size="medium" label="100 pax" variant="contained" sx={{color: "white", bgcolor: 'primary.main'}}></Chip>
-                            </Stack>
-                            <Divider sx={{my: 2}}></Divider>
-                            <Stack direction={'column'} gap={1}>
-                                <Stack className="info_dot" flex={1} direction={'row'} gap={1}>
-                                    <Box flex={2}>
-                                        <Typography variant="body1">06.05.2025</Typography>
-                                        <Typography variant="subtitle2" sx={{opacity: 0.6}}>2:00 AM</Typography>
-                                    </Box>
-                                    <Box flex={3}>
-                                        <Typography variant="body1">Origin</Typography>
-                                        <Typography variant="subtitle2" sx={{opacity: 0.6}}>Jordan Wharf</Typography>
-                                    </Box>
-                                </Stack>
-                                <Stack className="info_dot" flex={1} direction={'row'} gap={1}>
-                                    <Box flex={2}>
-                                        <Typography variant="body1">06.05.2025</Typography>
-                                        <Typography variant="subtitle2" sx={{opacity: 0.6}}>2:00 AM</Typography>
-                                    </Box>
-                                    <Box flex={3}>
-                                        <Typography variant="body1">Origin</Typography>
-                                        <Typography variant="subtitle2" sx={{opacity: 0.6}}>Rizal, Jordan, Guimaras</Typography>
-                                    </Box>
-                                </Stack>
-                            </Stack>
-                            <Divider sx={{my: 2}}></Divider>
-                            <Stack direction={'row'} gap={1}>
-                                <Stack direction={'row'} gap={1}>
-                                    <Avatar></Avatar>
-                                    <Box>
-                                        <Typography variant="body1">Name Here</Typography>
-                                        <Typography variant="body2">Master</Typography>
-                                    </Box>
-                                </Stack>
-                                <Tooltip title="Expand" sx={{ml: 'auto'}}>
-                                    <IconButton variant="contained" href={'/trip'} LinkComponent={Link}>
-                                        <OpenInFull></OpenInFull>
-                                    </IconButton>
-                                </Tooltip>
-                            </Stack>
-                        </Box>
+                        {data?.tripList ? data?.tripList?.map((a, i) => (
+                            <TripBox data={a} key={i}></TripBox>
+                        )) : <Typography variant="h5" textAlign={'center'}>No List found</Typography>}
                     </Stack>
                 </CustomTabPanel>
 
                 {/* Routes */}
                 <CustomTabPanel value={tabVal} index={2}>
                     <Stack direction={'column'} gap={2} p={3}>
-                        <Stack direction={'column'} gap={1} p={2} sx={{bgcolor: 'primary.main', borderRadius: 4}}>
-                            <Stack direction={'column'} className=" white">
-                                <Typography variant="body1" color="white">Parola Ferry Terminal</Typography>
-                                <Typography variant="body2" color="white">Parola Ferry Terminal, Iloilo City</Typography>
-                            </Stack>
-                            <Stack direction={'column'} className="info_dot white">
-                                <Typography variant="body1" color="white">Jordan Wharf</Typography>
-                                <Typography variant="body2" color="white">Jordan Wharf, Jordan, Guimaras</Typography>
-                            </Stack>
-                        </Stack>
-                        <Stack direction={'column'} gap={1} p={2} sx={{bgcolor: 'primary.main', borderRadius: 4}}>
-                            <Stack direction={'column'} className="info_dot white">
-                                <Typography variant="body1" color="white">Parola Ferry Terminal</Typography>
-                                <Typography variant="body2" color="white">Parola Ferry Terminal, Iloilo City</Typography>
-                            </Stack>
-                            <Stack direction={'column'} className="info_dot white">
-                                <Typography variant="body1" color="white">Jordan Wharf</Typography>
-                                <Typography variant="body2" color="white">Jordan Wharf, Jordan, Guimaras</Typography>
-                            </Stack>
-                        </Stack>
-                        <Stack direction={'column'} gap={1} p={2} sx={{bgcolor: 'primary.main', borderRadius: 4}}>
-                            <Stack direction={'column'} className="info_dot white">
-                                <Typography variant="body1" color="white">Parola Ferry Terminal</Typography>
-                                <Typography variant="body2" color="white">Parola Ferry Terminal, Iloilo City</Typography>
-                            </Stack>
-                            <Stack direction={'column'} className="info_dot white">
-                                <Typography variant="body1" color="white">Jordan Wharf</Typography>
-                                <Typography variant="body2" color="white">Jordan Wharf, Jordan, Guimaras</Typography>
-                            </Stack>
-                        </Stack>
-                        <Stack direction={'column'} gap={1} p={2} sx={{bgcolor: 'primary.main', borderRadius: 4}}>
-                            <Stack direction={'column'} className="info_dot white">
-                                <Typography variant="body1" color="white">Parola Ferry Terminal</Typography>
-                                <Typography variant="body2" color="white">Parola Ferry Terminal, Iloilo City</Typography>
-                            </Stack>
-                            <Stack direction={'column'} className="info_dot white">
-                                <Typography variant="body1" color="white">Jordan Wharf</Typography>
-                                <Typography variant="body2" color="white">Jordan Wharf, Jordan, Guimaras</Typography>
-                            </Stack>
-                        </Stack>
-                        <Stack direction={'column'} gap={1} p={2} sx={{bgcolor: 'primary.main', borderRadius: 4}}>
-                            <Stack direction={'column'} className="info_dot white">
-                                <Typography variant="body1" color="white">Parola Ferry Terminal</Typography>
-                                <Typography variant="body2" color="white">Parola Ferry Terminal, Iloilo City</Typography>
-                            </Stack>
-                            <Stack direction={'column'} className="info_dot white">
-                                <Typography variant="body1" color="white">Jordan Wharf</Typography>
-                                <Typography variant="body2" color="white">Jordan Wharf, Jordan, Guimaras</Typography>
-                            </Stack>
-                        </Stack>
+                        {data?.routeList ? data?.routeList?.map((a, i) => (
+                            <RouteBox data={a} key={i}></RouteBox>
+                        )) : <Typography variant="h5" textAlign={'center'}>No List found</Typography>}
                     </Stack>
                 </CustomTabPanel>
 
                 {/* Operators */}
                 <CustomTabPanel value={tabVal} index={3}>
                     <Stack direction={'column'} gap={2} p={3}>
-                        <Stack direction={'column'}>
-                            <Box position={'relative'} overflow={'hidden'} sx={{borderRadius: 4, boxShadow: "1px 4px 9px 4px rgba(0, 0, 0, 0.1)"}}>
-                                 <Stack p={2} direction={'column'} gap={2} position={'relative'} overflow={'hidden'}>
-                                    <Stack direction={'row'}>
-                                        <Stack position={'relative'} zIndex={10} flex={1} direction={'row'} alignItems={'center'} gap={1}>
-                                            <Avatar></Avatar>
-                                            <Stack direction={'column'}>
-                                                <Typography variant="body1">Name Here</Typography>
-                                            </Stack>
-                                        </Stack>
-                                    </Stack>
-                                    <Stack direction={'row'} gap={1}>
-                                        <Box flex={1} overflow={'hidden'} position={'relative'} height={50}>
-                                            <Image style={{objectFit: 'cover'}} src="/images/placeholders/landscape.jpg" fill alt="Placeholder"></Image>
-                                        </Box>
-                                        <Box flex={1} overflow={'hidden'} position={'relative'} height={50}>
-                                            <Image style={{objectFit: 'cover'}} src="/images/placeholders/landscape.jpg" fill alt="Placeholder"></Image>
-                                        </Box>
-                                        <Box flex={1} overflow={'hidden'} position={'relative'} height={50}>
-                                            <Image style={{objectFit: 'cover'}} src="/images/placeholders/landscape.jpg" fill alt="Placeholder"></Image>
-                                        </Box>
-                                        <Box flex={1} overflow={'hidden'} position={'relative'} height={50}>
-                                            <Image style={{objectFit: 'cover'}} src="/images/placeholders/landscape.jpg" fill alt="Placeholder"></Image>
-                                        </Box>
-                                        
-                                    </Stack>
-                                </Stack>
-                                <Divider></Divider>
-                                <Stack px={2} py={0} direction={'row'} alignItems={'center'} justifyContent={'space-between'}>
-                                    <Chip size="small" label="000 Vessels" variant="contained" sx={{color: "white", bgcolor: 'primary.main'}}></Chip>
-                                    <Tooltip title="Show Details">
-                                        <IconButton>
-                                            <ChevronRight/>
-                                        </IconButton>
-                                    </Tooltip>
-                                </Stack>
-                            </Box>
-                        </Stack>
-                        <Stack direction={'column'}>
-                            <Box position={'relative'} overflow={'hidden'} sx={{borderRadius: 4, boxShadow: "1px 4px 9px 4px rgba(0, 0, 0, 0.1)"}}>
-                                 <Stack p={2} direction={'column'} gap={2} position={'relative'} overflow={'hidden'}>
-                                    <Stack direction={'row'}>
-                                        <Stack position={'relative'} zIndex={10} flex={1} direction={'row'} alignItems={'center'} gap={1}>
-                                            <Avatar></Avatar>
-                                            <Stack direction={'column'}>
-                                                <Typography variant="body1">Name Here</Typography>
-                                            </Stack>
-                                        </Stack>
-                                    </Stack>
-                                    <Stack direction={'row'} gap={1}>
-                                        <Box flex={1} overflow={'hidden'} position={'relative'} height={50}>
-                                            <Image style={{objectFit: 'cover'}} src="/images/placeholders/landscape.jpg" fill alt="Placeholder"></Image>
-                                        </Box>
-                                        <Box flex={1} overflow={'hidden'} position={'relative'} height={50}>
-                                            <Image style={{objectFit: 'cover'}} src="/images/placeholders/landscape.jpg" fill alt="Placeholder"></Image>
-                                        </Box>
-                                        <Box flex={1} overflow={'hidden'} position={'relative'} height={50}>
-                                            <Image style={{objectFit: 'cover'}} src="/images/placeholders/landscape.jpg" fill alt="Placeholder"></Image>
-                                        </Box>
-                                        <Box flex={1} overflow={'hidden'} position={'relative'} height={50}>
-                                            <Image style={{objectFit: 'cover'}} src="/images/placeholders/landscape.jpg" fill alt="Placeholder"></Image>
-                                        </Box>
-                                        
-                                    </Stack>
-                                </Stack>
-                                <Divider></Divider>
-                                <Stack px={2} py={0} direction={'row'} alignItems={'center'} justifyContent={'space-between'}>
-                                    <Chip size="small" label="000 Vessels" variant="contained" sx={{color: "white", bgcolor: 'primary.main'}}></Chip>
-                                    <Tooltip title="Show Details">
-                                        <IconButton>
-                                            <ChevronRight/>
-                                        </IconButton>
-                                    </Tooltip>
-                                </Stack>
-                            </Box>
-                        </Stack>
-                        <Stack direction={'column'}>
-                            <Box position={'relative'} overflow={'hidden'} sx={{borderRadius: 4, boxShadow: "1px 4px 9px 4px rgba(0, 0, 0, 0.1)"}}>
-                                 <Stack p={2} direction={'column'} gap={2} position={'relative'} overflow={'hidden'}>
-                                    <Stack direction={'row'}>
-                                        <Stack position={'relative'} zIndex={10} flex={1} direction={'row'} alignItems={'center'} gap={1}>
-                                            <Avatar></Avatar>
-                                            <Stack direction={'column'}>
-                                                <Typography variant="body1">Name Here</Typography>
-                                            </Stack>
-                                        </Stack>
-                                    </Stack>
-                                    <Stack direction={'row'} gap={1}>
-                                        <Box flex={1} overflow={'hidden'} position={'relative'} height={50}>
-                                            <Image style={{objectFit: 'cover'}} src="/images/placeholders/landscape.jpg" fill alt="Placeholder"></Image>
-                                        </Box>
-                                        <Box flex={1} overflow={'hidden'} position={'relative'} height={50}>
-                                            <Image style={{objectFit: 'cover'}} src="/images/placeholders/landscape.jpg" fill alt="Placeholder"></Image>
-                                        </Box>
-                                        <Box flex={1} overflow={'hidden'} position={'relative'} height={50}>
-                                            <Image style={{objectFit: 'cover'}} src="/images/placeholders/landscape.jpg" fill alt="Placeholder"></Image>
-                                        </Box>
-                                        <Box flex={1} overflow={'hidden'} position={'relative'} height={50}>
-                                            <Image style={{objectFit: 'cover'}} src="/images/placeholders/landscape.jpg" fill alt="Placeholder"></Image>
-                                        </Box>
-                                        
-                                    </Stack>
-                                </Stack>
-                                <Divider></Divider>
-                                <Stack px={2} py={0} direction={'row'} alignItems={'center'} justifyContent={'space-between'}>
-                                    <Chip size="small" label="000 Vessels" variant="contained" sx={{color: "white", bgcolor: 'primary.main'}}></Chip>
-                                    <Tooltip title="Show Details">
-                                        <IconButton>
-                                            <ChevronRight/>
-                                        </IconButton>
-                                    </Tooltip>
-                                </Stack>
-                            </Box>
-                        </Stack>
-                        <Stack direction={'column'}>
-                            <Box position={'relative'} overflow={'hidden'} sx={{borderRadius: 4, boxShadow: "1px 4px 9px 4px rgba(0, 0, 0, 0.1)"}}>
-                                 <Stack p={2} direction={'column'} gap={2} position={'relative'} overflow={'hidden'}>
-                                    <Stack direction={'row'}>
-                                        <Stack position={'relative'} zIndex={10} flex={1} direction={'row'} alignItems={'center'} gap={1}>
-                                            <Avatar></Avatar>
-                                            <Stack direction={'column'}>
-                                                <Typography variant="body1">Name Here</Typography>
-                                            </Stack>
-                                        </Stack>
-                                    </Stack>
-                                    <Stack direction={'row'} gap={1}>
-                                        <Box flex={1} overflow={'hidden'} position={'relative'} height={50}>
-                                            <Image style={{objectFit: 'cover'}} src="/images/placeholders/landscape.jpg" fill alt="Placeholder"></Image>
-                                        </Box>
-                                        <Box flex={1} overflow={'hidden'} position={'relative'} height={50}>
-                                            <Image style={{objectFit: 'cover'}} src="/images/placeholders/landscape.jpg" fill alt="Placeholder"></Image>
-                                        </Box>
-                                        <Box flex={1} overflow={'hidden'} position={'relative'} height={50}>
-                                            <Image style={{objectFit: 'cover'}} src="/images/placeholders/landscape.jpg" fill alt="Placeholder"></Image>
-                                        </Box>
-                                        <Box flex={1} overflow={'hidden'} position={'relative'} height={50}>
-                                            <Image style={{objectFit: 'cover'}} src="/images/placeholders/landscape.jpg" fill alt="Placeholder"></Image>
-                                        </Box>
-                                        
-                                    </Stack>
-                                </Stack>
-                                <Divider></Divider>
-                                <Stack px={2} py={0} direction={'row'} alignItems={'center'} justifyContent={'space-between'}>
-                                    <Chip size="small" label="000 Vessels" variant="contained" sx={{color: "white", bgcolor: 'primary.main'}}></Chip>
-                                    <Tooltip title="Show Details">
-                                        <IconButton>
-                                            <ChevronRight/>
-                                        </IconButton>
-                                    </Tooltip>
-                                </Stack>
-                            </Box>
-                        </Stack>
-                        <Stack direction={'column'}>
-                            <Box position={'relative'} overflow={'hidden'} sx={{borderRadius: 4, boxShadow: "1px 4px 9px 4px rgba(0, 0, 0, 0.1)"}}>
-                                 <Stack p={2} direction={'column'} gap={2} position={'relative'} overflow={'hidden'}>
-                                    <Stack direction={'row'}>
-                                        <Stack position={'relative'} zIndex={10} flex={1} direction={'row'} alignItems={'center'} gap={1}>
-                                            <Avatar></Avatar>
-                                            <Stack direction={'column'}>
-                                                <Typography variant="body1">Name Here</Typography>
-                                            </Stack>
-                                        </Stack>
-                                    </Stack>
-                                    <Stack direction={'row'} gap={1}>
-                                        <Box flex={1} overflow={'hidden'} position={'relative'} height={50}>
-                                            <Image style={{objectFit: 'cover'}} src="/images/placeholders/landscape.jpg" fill alt="Placeholder"></Image>
-                                        </Box>
-                                        <Box flex={1} overflow={'hidden'} position={'relative'} height={50}>
-                                            <Image style={{objectFit: 'cover'}} src="/images/placeholders/landscape.jpg" fill alt="Placeholder"></Image>
-                                        </Box>
-                                        <Box flex={1} overflow={'hidden'} position={'relative'} height={50}>
-                                            <Image style={{objectFit: 'cover'}} src="/images/placeholders/landscape.jpg" fill alt="Placeholder"></Image>
-                                        </Box>
-                                        <Box flex={1} overflow={'hidden'} position={'relative'} height={50}>
-                                            <Image style={{objectFit: 'cover'}} src="/images/placeholders/landscape.jpg" fill alt="Placeholder"></Image>
-                                        </Box>
-                                        
-                                    </Stack>
-                                </Stack>
-                                <Divider></Divider>
-                                <Stack px={2} py={0} direction={'row'} alignItems={'center'} justifyContent={'space-between'}>
-                                    <Chip size="small" label="000 Vessels" variant="contained" sx={{color: "white", bgcolor: 'primary.main'}}></Chip>
-                                    <Tooltip title="Show Details">
-                                        <IconButton>
-                                            <ChevronRight/>
-                                        </IconButton>
-                                    </Tooltip>
-                                </Stack>
-                            </Box>
-                        </Stack>
+                        {data?.operatorList ? data?.operatorList?.map((a, i) => (
+                            <OperatorBox data={a} key={i}></OperatorBox>
+                        )) : <Typography variant="h5" textAlign={'center'}>No List found</Typography>}
                         <Button variant="outlined">See More</Button>
                     </Stack>
                 </CustomTabPanel>
@@ -528,7 +359,7 @@ export default function MapMain(props) {
 
     const markersData = [
         {
-            portName: "Port Name",
+            portName: "Jordan Wharf",
             portImage: "Port Image",
             address: "Jordan Wharf, Jordan, Guimaras",
             markCoords: [10.66711787840169, 122.58935371527645],
@@ -552,19 +383,685 @@ export default function MapMain(props) {
                 totalPax: '132',
                 date: new Date()
             },
-            routes: [
+            tripList: [
                 {
+                    vessel: "Vessel Name",
+                    pax: 100,
+                    masterName: "Juan Dela Cruz",
+                    photo: "",
+                    origin: {
+                        address: "Buenavista Wharf",
+                        date: new Date()
+                    },
                     arrival: {
                         address: "Parola Ferry Terminal, Iloilo City",
-                        label: "Parola Ferry Terminal"
+                        date: new Date()
                     },
+                },
+                {
+                    vessel: "Vessel Name",
+                    pax: 100,
+                    masterName: "Juan Dela Cruz",
+                    photo: "",
                     origin: {
-                        address: "Jordan Wharf, Jordan, Guimaras",
-                        label: "Jordan Wharf"
-                    }
+                        address: "Buenavista Wharf",
+                        date: new Date()
+                    },
+                    arrival: {
+                        address: "Parola Ferry Terminal, Iloilo City",
+                        date: new Date()
+                    },
+                },
+                {
+                    vessel: "Vessel Name",
+                    pax: 100,
+                    masterName: "Juan Dela Cruz",
+                    photo: "",
+                    origin: {
+                        address: "Buenavista Wharf",
+                        date: new Date()
+                    },
+                    arrival: {
+                        address: "Parola Ferry Terminal, Iloilo City",
+                        date: new Date()
+                    },
+                },
+                {
+                    vessel: "Vessel Name",
+                    pax: 100,
+                    masterName: "Juan Dela Cruz",
+                    photo: "",
+                    origin: {
+                        address: "Buenavista Wharf",
+                        date: new Date()
+                    },
+                    arrival: {
+                        address: "Parola Ferry Terminal, Iloilo City",
+                        date: new Date()
+                    },
                 }
             ],
-        }
+            routeList: [
+                {
+                    origin: {
+                        port: 'Jordan Wharf',
+                        address: "Jordan Wharf, Jordan, Guimaras",
+                    },
+                    arrival: {
+                        port: 'Parola Ferry Terminal',
+                        address: "Parola Ferry Terminal, Iloilo City",
+                    },
+                },
+                {
+                    origin: {
+                        port: 'Jordan Wharf',
+                        address: "Jordan Wharf, Jordan, Guimaras",
+                    },
+                    arrival: {
+                        port: 'Parola Ferry Terminal',
+                        address: "Parola Ferry Terminal, Iloilo City",
+                    },
+                },
+                {
+                    origin: {
+                        port: 'Jordan Wharf',
+                        address: "Jordan Wharf, Jordan, Guimaras",
+                    },
+                    arrival: {
+                        port: 'Parola Ferry Terminal',
+                        address: "Parola Ferry Terminal, Iloilo City",
+                    },
+                },
+                {
+                    origin: {
+                        port: 'Jordan Wharf',
+                        address: "Jordan Wharf, Jordan, Guimaras",
+                    },
+                    arrival: {
+                        port: 'Parola Ferry Terminal',
+                        address: "Parola Ferry Terminal, Iloilo City",
+                    },
+                }
+            ],
+            operatorList: [
+                {
+                    name: "Juan Dela Cruz",
+                    photo: "",
+                    vesselCount: '050',
+                    images: ['', '', '', '', '']
+                },
+                {
+                    name: "Juan Dela Cruz",
+                    photo: "",
+                    vesselCount: '050',
+                    images: ['', '', '', '']
+                },
+                {
+                    name: "Juan Dela Cruz",
+                    photo: "",
+                    vesselCount: '050',
+                    images: ['', '', '', '', '', '']
+                },
+                {
+                    name: "Juan Dela Cruz",
+                    photo: "",
+                    vesselCount: '050',
+                    images: ['', '', '']
+                },
+            ]
+        },
+        {
+            portName: "Iloilo Ferry Terminal",
+            portImage: "Port Image",
+            address: "Iloilo Ferry Terminal, Iloilo City",
+            markCoords: [10.692394310335989, 122.58350739919098],
+            traffic: {
+                passengers: '150,321',
+                trips: 120
+            },
+            departure: {
+                vessel: "M/V Margaux I",
+                operator: 'SG8 Maritime, Inc.',
+                origin: "Buenavista Wharf",
+                arrival: "Parola Ferry Terminal",
+                totalPax: '132',
+                date: new Date()
+            },
+            arrival: {
+                vessel: "M/V Margaux I",
+                operator: 'SG8 Maritime, Inc.',
+                origin: "Jordan Wharf, Jordan, Guimaras",
+                arrival: "Parola Ferry Terminal, Iloilo City",
+                totalPax: '132',
+                date: new Date()
+            },
+            tripList: [
+                {
+                    vessel: "Vessel Name",
+                    pax: 100,
+                    masterName: "Juan Dela Cruz",
+                    photo: "",
+                    origin: {
+                        address: "Buenavista Wharf",
+                        date: new Date()
+                    },
+                    arrival: {
+                        address: "Parola Ferry Terminal, Iloilo City",
+                        date: new Date()
+                    },
+                },
+                {
+                    vessel: "Vessel Name",
+                    pax: 100,
+                    masterName: "Juan Dela Cruz",
+                    photo: "",
+                    origin: {
+                        address: "Buenavista Wharf",
+                        date: new Date()
+                    },
+                    arrival: {
+                        address: "Parola Ferry Terminal, Iloilo City",
+                        date: new Date()
+                    },
+                },
+                {
+                    vessel: "Vessel Name",
+                    pax: 100,
+                    masterName: "Juan Dela Cruz",
+                    photo: "",
+                    origin: {
+                        address: "Buenavista Wharf",
+                        date: new Date()
+                    },
+                    arrival: {
+                        address: "Parola Ferry Terminal, Iloilo City",
+                        date: new Date()
+                    },
+                },
+                {
+                    vessel: "Vessel Name",
+                    pax: 100,
+                    masterName: "Juan Dela Cruz",
+                    photo: "",
+                    origin: {
+                        address: "Buenavista Wharf",
+                        date: new Date()
+                    },
+                    arrival: {
+                        address: "Parola Ferry Terminal, Iloilo City",
+                        date: new Date()
+                    },
+                }
+            ],
+            routeList: [
+                {
+                    origin: {
+                        port: 'Jordan Wharf',
+                        address: "Jordan Wharf, Jordan, Guimaras",
+                    },
+                    arrival: {
+                        port: 'Parola Ferry Terminal',
+                        address: "Parola Ferry Terminal, Iloilo City",
+                    },
+                },
+                {
+                    origin: {
+                        port: 'Jordan Wharf',
+                        address: "Jordan Wharf, Jordan, Guimaras",
+                    },
+                    arrival: {
+                        port: 'Parola Ferry Terminal',
+                        address: "Parola Ferry Terminal, Iloilo City",
+                    },
+                },
+                {
+                    origin: {
+                        port: 'Jordan Wharf',
+                        address: "Jordan Wharf, Jordan, Guimaras",
+                    },
+                    arrival: {
+                        port: 'Parola Ferry Terminal',
+                        address: "Parola Ferry Terminal, Iloilo City",
+                    },
+                },
+                {
+                    origin: {
+                        port: 'Jordan Wharf',
+                        address: "Jordan Wharf, Jordan, Guimaras",
+                    },
+                    arrival: {
+                        port: 'Parola Ferry Terminal',
+                        address: "Parola Ferry Terminal, Iloilo City",
+                    },
+                }
+            ],
+            operatorList: [
+                {
+                    name: "Juan Dela Cruz",
+                    photo: "",
+                    vesselCount: '050',
+                    images: ['', '', '', '', '']
+                },
+                {
+                    name: "Juan Dela Cruz",
+                    photo: "",
+                    vesselCount: '050',
+                    images: ['', '', '', '']
+                },
+                {
+                    name: "Juan Dela Cruz",
+                    photo: "",
+                    vesselCount: '050',
+                    images: ['', '', '', '', '', '']
+                },
+                {
+                    name: "Juan Dela Cruz",
+                    photo: "",
+                    vesselCount: '050',
+                    images: ['', '', '']
+                },
+            ]
+        },
+        {
+            portName: "MacArthurs Wharf Ferry Terminal",
+            portImage: "Port Image",
+            address: "MacArthurs Wharf Ferry Terminal, Sto. Rosario, Buenavista",
+            markCoords: [10.688715959205636, 122.61303808168424],
+            traffic: {
+                passengers: '150,321',
+                trips: 120
+            },
+            departure: {
+                vessel: "M/V Margaux I",
+                operator: 'SG8 Maritime, Inc.',
+                origin: "Buenavista Wharf",
+                arrival: "Parola Ferry Terminal",
+                totalPax: '132',
+                date: new Date()
+            },
+            arrival: {
+                vessel: "M/V Margaux I",
+                operator: 'SG8 Maritime, Inc.',
+                origin: "Jordan Wharf, Jordan, Guimaras",
+                arrival: "Parola Ferry Terminal, Iloilo City",
+                totalPax: '132',
+                date: new Date()
+            },
+            tripList: [
+                {
+                    vessel: "Vessel Name",
+                    pax: 100,
+                    masterName: "Juan Dela Cruz",
+                    photo: "",
+                    origin: {
+                        address: "Buenavista Wharf",
+                        date: new Date()
+                    },
+                    arrival: {
+                        address: "Parola Ferry Terminal, Iloilo City",
+                        date: new Date()
+                    },
+                },
+                {
+                    vessel: "Vessel Name",
+                    pax: 100,
+                    masterName: "Juan Dela Cruz",
+                    photo: "",
+                    origin: {
+                        address: "Buenavista Wharf",
+                        date: new Date()
+                    },
+                    arrival: {
+                        address: "Parola Ferry Terminal, Iloilo City",
+                        date: new Date()
+                    },
+                },
+                {
+                    vessel: "Vessel Name",
+                    pax: 100,
+                    masterName: "Juan Dela Cruz",
+                    photo: "",
+                    origin: {
+                        address: "Buenavista Wharf",
+                        date: new Date()
+                    },
+                    arrival: {
+                        address: "Parola Ferry Terminal, Iloilo City",
+                        date: new Date()
+                    },
+                },
+                {
+                    vessel: "Vessel Name",
+                    pax: 100,
+                    masterName: "Juan Dela Cruz",
+                    photo: "",
+                    origin: {
+                        address: "Buenavista Wharf",
+                        date: new Date()
+                    },
+                    arrival: {
+                        address: "Parola Ferry Terminal, Iloilo City",
+                        date: new Date()
+                    },
+                }
+            ],
+            routeList: [
+                {
+                    origin: {
+                        port: 'Jordan Wharf',
+                        address: "Jordan Wharf, Jordan, Guimaras",
+                    },
+                    arrival: {
+                        port: 'Parola Ferry Terminal',
+                        address: "Parola Ferry Terminal, Iloilo City",
+                    },
+                },
+                {
+                    origin: {
+                        port: 'Jordan Wharf',
+                        address: "Jordan Wharf, Jordan, Guimaras",
+                    },
+                    arrival: {
+                        port: 'Parola Ferry Terminal',
+                        address: "Parola Ferry Terminal, Iloilo City",
+                    },
+                },
+                {
+                    origin: {
+                        port: 'Jordan Wharf',
+                        address: "Jordan Wharf, Jordan, Guimaras",
+                    },
+                    arrival: {
+                        port: 'Parola Ferry Terminal',
+                        address: "Parola Ferry Terminal, Iloilo City",
+                    },
+                },
+                {
+                    origin: {
+                        port: 'Jordan Wharf',
+                        address: "Jordan Wharf, Jordan, Guimaras",
+                    },
+                    arrival: {
+                        port: 'Parola Ferry Terminal',
+                        address: "Parola Ferry Terminal, Iloilo City",
+                    },
+                }
+            ],
+            operatorList: [
+                {
+                    name: "Juan Dela Cruz",
+                    photo: "",
+                    vesselCount: '050',
+                    images: ['', '', '', '', '']
+                },
+                {
+                    name: "Juan Dela Cruz",
+                    photo: "",
+                    vesselCount: '050',
+                    images: ['', '', '', '']
+                },
+                {
+                    name: "Juan Dela Cruz",
+                    photo: "",
+                    vesselCount: '050',
+                    images: ['', '', '', '', '', '']
+                },
+                {
+                    name: "Juan Dela Cruz",
+                    photo: "",
+                    vesselCount: '050',
+                    images: ['', '', '']
+                },
+            ]
+        },
+        {
+            portName: "Jordan RoRo Port",
+            portImage: "Port Image",
+            address: "Jordan RoRo Port, Jordan, Guimaras",
+            markCoords: [10.6657357021, 122.58470589214062],
+            traffic: {
+                passengers: '120,321',
+                trips: 230
+            },
+            departure: {
+                vessel: "M/V MA Diana",
+                operator: 'SG8 Maritime, Inc.',
+                origin: "Buenavista Wharf",
+                arrival: "Parola Ferry Terminal",
+                totalPax: '283',
+                date: new Date()
+            },
+            arrival: {
+                vessel: "M/V MA Diana",
+                operator: 'SG8 Maritime, Inc.',
+                origin: "Jordan Wharf, Jordan, Guimaras",
+                arrival: "Parola Ferry Terminal, Iloilo City",
+                totalPax: '283',
+                date: new Date()
+            },
+            tripList: [
+                {
+                    vessel: "Vessel Name",
+                    pax: 100,
+                    masterName: "Juan Dela Cruz",
+                    photo: "",
+                    origin: {
+                        address: "Buenavista Wharf",
+                        date: new Date()
+                    },
+                    arrival: {
+                        address: "Parola Ferry Terminal, Iloilo City",
+                        date: new Date()
+                    },
+                }
+            ],
+            routeList: [
+                {
+                    origin: {
+                        port: 'Jordan Wharf',
+                        address: "Jordan Wharf, Jordan, Guimaras",
+                    },
+                    arrival: {
+                        port: 'Parola Ferry Terminal',
+                        address: "Parola Ferry Terminal, Iloilo City",
+                    },
+                }
+            ],
+            operatorList: [
+                {
+                    name: "Juan Dela Cruz",
+                    photo: "",
+                    vesselCount: '050',
+                    images: ['']
+                }
+            ]
+        },
+        {
+            portName: "BREDCO Seaport",
+            portImage: "Port Image",
+            address: "BREDCO Seaport, Bacolod, 6100 Negros Occidental",
+            markCoords: [10.676682243081036, 122.94050390980276],
+            traffic: {
+                passengers: '120,321',
+                trips: 230
+            },
+            departure: {
+                vessel: "M/V MA Diana",
+                operator: 'SG8 Maritime, Inc.',
+                origin: "Buenavista Wharf",
+                arrival: "Parola Ferry Terminal",
+                totalPax: '283',
+                date: new Date()
+            },
+            arrival: {
+                vessel: "M/V MA Diana",
+                operator: 'SG8 Maritime, Inc.',
+                origin: "Jordan Wharf, Jordan, Guimaras",
+                arrival: "Parola Ferry Terminal, Iloilo City",
+                totalPax: '283',
+                date: new Date()
+            },
+            tripList: [
+                {
+                    vessel: "Vessel Name",
+                    pax: 100,
+                    masterName: "Juan Dela Cruz",
+                    photo: "",
+                    origin: {
+                        address: "Buenavista Wharf",
+                        date: new Date()
+                    },
+                    arrival: {
+                        address: "Parola Ferry Terminal, Iloilo City",
+                        date: new Date()
+                    },
+                }
+            ],
+            routeList: [
+                {
+                    origin: {
+                        port: 'Jordan Wharf',
+                        address: "Jordan Wharf, Jordan, Guimaras",
+                    },
+                    arrival: {
+                        port: 'Parola Ferry Terminal',
+                        address: "Parola Ferry Terminal, Iloilo City",
+                    },
+                }
+            ],
+            operatorList: [
+                {
+                    name: "Juan Dela Cruz",
+                    photo: "",
+                    vesselCount: '050',
+                    images: ['']
+                }
+            ]
+        },
+        {
+            portName: "Dumangas Port",
+            portImage: "Port Image",
+            address: "QPG5+G85 Dumangas-Naluoyan Port, Dumangas, Iloilo",
+            markCoords: [10.777073807910764, 122.70828539466444],
+            traffic: {
+                passengers: '120,321',
+                trips: 230
+            },
+            departure: {
+                vessel: "M/V MA Diana",
+                operator: 'SG8 Maritime, Inc.',
+                origin: "Buenavista Wharf",
+                arrival: "Parola Ferry Terminal",
+                totalPax: '283',
+                date: new Date()
+            },
+            arrival: {
+                vessel: "M/V MA Diana",
+                operator: 'SG8 Maritime, Inc.',
+                origin: "Jordan Wharf, Jordan, Guimaras",
+                arrival: "Parola Ferry Terminal, Iloilo City",
+                totalPax: '283',
+                date: new Date()
+            },
+            tripList: [
+                {
+                    vessel: "Vessel Name",
+                    pax: 100,
+                    masterName: "Juan Dela Cruz",
+                    photo: "",
+                    origin: {
+                        address: "Buenavista Wharf",
+                        date: new Date()
+                    },
+                    arrival: {
+                        address: "Parola Ferry Terminal, Iloilo City",
+                        date: new Date()
+                    },
+                }
+            ],
+            routeList: [
+                {
+                    origin: {
+                        port: 'Jordan Wharf',
+                        address: "Jordan Wharf, Jordan, Guimaras",
+                    },
+                    arrival: {
+                        port: 'Parola Ferry Terminal',
+                        address: "Parola Ferry Terminal, Iloilo City",
+                    },
+                }
+            ],
+            operatorList: [
+                {
+                    name: "Juan Dela Cruz",
+                    photo: "",
+                    vesselCount: '050',
+                    images: ['']
+                }
+            ]
+        },
+        {
+            portName: "Bay-Ang, Ajuy Roro Port",
+            portImage: "Port Image",
+            address: "2WVP+Q29, Ajuy, Iloilo",
+            markCoords: [11.04450190966244, 122.93504980826703],
+            traffic: {
+                passengers: '120,321',
+                trips: 230
+            },
+            departure: {
+                vessel: "M/V MA Diana",
+                operator: 'SG8 Maritime, Inc.',
+                origin: "Buenavista Wharf",
+                arrival: "Parola Ferry Terminal",
+                totalPax: '283',
+                date: new Date()
+            },
+            arrival: {
+                vessel: "M/V MA Diana",
+                operator: 'SG8 Maritime, Inc.',
+                origin: "Jordan Wharf, Jordan, Guimaras",
+                arrival: "Parola Ferry Terminal, Iloilo City",
+                totalPax: '283',
+                date: new Date()
+            },
+            tripList: [
+                {
+                    vessel: "Vessel Name",
+                    pax: 100,
+                    masterName: "Juan Dela Cruz",
+                    photo: "",
+                    origin: {
+                        address: "Buenavista Wharf",
+                        date: new Date()
+                    },
+                    arrival: {
+                        address: "Parola Ferry Terminal, Iloilo City",
+                        date: new Date()
+                    },
+                }
+            ],
+            routeList: [
+                {
+                    origin: {
+                        port: 'Jordan Wharf',
+                        address: "Jordan Wharf, Jordan, Guimaras",
+                    },
+                    arrival: {
+                        port: 'Parola Ferry Terminal',
+                        address: "Parola Ferry Terminal, Iloilo City",
+                    },
+                }
+            ],
+            operatorList: [
+                {
+                    name: "Juan Dela Cruz",
+                    photo: "",
+                    vesselCount: '050',
+                    images: ['']
+                }
+            ]
+        },
     ]
 
     return (
