@@ -99,7 +99,8 @@ function ProgressChart(props){
                         height: 10,
                         bgcolor: `${a?.clr}`,
                         borderRadius: "50%",
-                        mr: 1
+                        mr: 1,
+                        mt: '6px'
                     }
                 }}>
                     <Stack direction={'column'}>
