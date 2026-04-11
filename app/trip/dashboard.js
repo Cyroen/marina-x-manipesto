@@ -102,7 +102,10 @@ function ProgressChart(props){
                         mr: 1
                     }
                 }}>
-                    <Typography variant="body1" component={'div'} color={`${a?.clr}`}>{a?.l}</Typography>
+                    <Stack direction={'column'}>
+                        <Typography variant="body1" component={'div'} color={`${a?.clr}`}>{a?.l}</Typography>
+                        <Typography variant="h6" component={'div'}>{a?.c}</Typography>
+                    </Stack>
                 </Box>
             ))}
         </Stack>
@@ -287,34 +290,34 @@ export default function DashboardTrip() {
             {
                 l: "Male",
                 c: 19,
-                clr: 'red'
+                clr: '#8b77fd'
             },
             {
                 l: "Female",
                 c: 66,
-                clr: 'blue'
+                clr: '#75dbff'
             }
         ],
         ag: [
             {
                 l: "Infants",
                 c: 3,
-                clr: 'red'
+                clr: '#8b77fd'
             },
             {
                 l: "Children",
                 c: 7,
-                clr: 'purple'
+                clr: '#75dbff'
             },
             {
                 l: "Adults",
                 c: 70,
-                clr: 'teal'
+                clr: '#ffbb25'
             },
             {
                 l: "Seniors",
                 c: 5,
-                clr: 'blue'
+                clr: '#98c85a'
             },
         ]
     }
@@ -344,7 +347,6 @@ export default function DashboardTrip() {
                         </Stack>
                     </Stack>
                 <Box p={3} borderRadius={4} sx={{bgcolor: 'white'}}>
-                    {/* <Typography variant="h5" component={'div'}>List</Typography> */}
                     <Tabs variant="scrollable" slotProps={{
                         root: {
                             sx: {
@@ -444,6 +446,7 @@ export default function DashboardTrip() {
                             <Typography px={3} variant="h5" component={'h3'}>Summary</Typography>
                             <Box maxHeight={500} mt={3} pb={4} overflow={'auto'}>
                                 <Stack py={3} direction={'column'} gap={4}>
+                                    
                                     {/* Route */}
                                     <Box className="info_box white" p={2} mx={{xs: 0, md: 3}} borderRadius={4} sx={{boxShadow: "1px 4px 9px 4px rgba(0, 0, 0, 0.05)"}}>
                                         <Typography variant="body1" className="label">Route</Typography>
