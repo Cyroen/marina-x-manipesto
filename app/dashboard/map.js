@@ -178,9 +178,9 @@ function MarkerMap({data, onPortOpenClick, onPortCloseClick}){
             }
         }} anchor='left' variant='temporary'>
             <Stack flex={1} direction={'column'}>
-                <Stack direction={'column'} gap={2}>
-                    <Box width={'100%'} height={300} position={'relative'}>
-                        <Image src="/images/placeholders/landscape.jpg" fill alt="Placeholder Image">
+                <Stack direction={'column'} gap={0}>
+                    <Box width={'100%'} height={200} position={'relative'}>
+                        <Image style={{objectFit: 'cover'}} src={data?.portImage?.length !== 0 ? `${data?.portImage}` : '/images/placeholders/landscape.jpg'} fill alt="Placeholder Image">
                         </Image>
                     </Box>
                     <Stack direction={'column'} p={3}>
@@ -360,7 +360,7 @@ export default function MapMain(props) {
     const markersData = [
         {
             portName: "Jordan Wharf",
-            portImage: "Port Image",
+            portImage: "https://lh3.googleusercontent.com/gps-cs-s/AHVAwepNSy9Tklavb409A-CvGFWHm_21mV8CeNWufjJyUzvKtwtBH07x9euzbDcVCJflXClpSs2Vf7_xllwHx4sErO2nGjcWwEwQ0zzwpM5cDGokC6w7Zdkrs25UiUEuCGRPOG4Lg1pDds6QXCPi=s696-k-no",
             address: "Jordan Wharf, Jordan, Guimaras",
             markCoords: [10.66711787840169, 122.58935371527645],
             traffic: {
@@ -512,7 +512,7 @@ export default function MapMain(props) {
         },
         {
             portName: "Iloilo Ferry Terminal",
-            portImage: "Port Image",
+            portImage: "https://lh3.googleusercontent.com/gps-cs-s/AHVAwerh9Y2sUQuIFh8SRbIA0aMi2XkyKx-KjWQBtBVRQ-e1DrjbPaKwTdD-MaOY7IGEbsjhZWY2svWQ7ihZarf3fH9XskZvwxY7rvE-JgxIYAMUbBtddNN7K_fga4U2Kf963m0PBNjU8g=w900-h500-k-no",
             address: "Iloilo Ferry Terminal, Iloilo City",
             markCoords: [10.692394310335989, 122.58350739919098],
             traffic: {
@@ -664,7 +664,7 @@ export default function MapMain(props) {
         },
         {
             portName: "MacArthurs Wharf Ferry Terminal",
-            portImage: "Port Image",
+            portImage: "https://lh3.googleusercontent.com/gps-cs-s/AHVAwepxWogynadtcJoorh0Uyi0IsZBq696jPMYrsX9IyM2UAV_J3JXaLZiZppmwFM5t2dessJVdhpGzEPtL5lMsBL88Xqih5WbcbNFNB8bFI94LKJIP6Vw4xBgVwmOgjWSnL01VXK9W=w900-h500-k-no",
             address: "MacArthurs Wharf Ferry Terminal, Sto. Rosario, Buenavista",
             markCoords: [10.688715959205636, 122.61303808168424],
             traffic: {
@@ -816,7 +816,7 @@ export default function MapMain(props) {
         },
         {
             portName: "Jordan RoRo Port",
-            portImage: "Port Image",
+            portImage: "https://lh3.googleusercontent.com/gps-cs-s/AHVAwervoqXHg6J4_iKUphVZ8FOyokgvaB2jSMLtup0S5BnLkyLTHmysKY_HafvJrKN3pxBTs_PuyHJrD3EUpV0j7gml3xpVmqz5lPhKaZpctVDkZfXerWn7eIZjtTp-gThdsf0dCYPR=w900-h500-k-no",
             address: "Jordan RoRo Port, Jordan, Guimaras",
             markCoords: [10.6657357021, 122.58470589214062],
             traffic: {
@@ -878,7 +878,7 @@ export default function MapMain(props) {
         },
         {
             portName: "BREDCO Seaport",
-            portImage: "Port Image",
+            portImage: "https://lh3.googleusercontent.com/gps-cs-s/AHVAwerbKHaS3YA_0Sw7JDgFsZYfeAqarrOoJ7WhSQmlO69MC3TwWI29Xdbgv9H5PbNYAHOogeXSkT3PIdPZLi121rOFiimWHepGssGUwU5kCB7RZ2tuIDCMvmuRIuLRdWYq3azOFwtCMw=w900-h500-k-no",
             address: "BREDCO Seaport, Bacolod, 6100 Negros Occidental",
             markCoords: [10.676682243081036, 122.94050390980276],
             traffic: {
@@ -940,7 +940,7 @@ export default function MapMain(props) {
         },
         {
             portName: "Dumangas Port",
-            portImage: "Port Image",
+            portImage: "https://lh3.googleusercontent.com/gps-cs-s/AHVAwepf6OTNHHW9UPaF30xTpCIt5ynAmEOp0qnwU8RaxUzVATFNGN8f5lDB5PavegHzvjIo_bz6aWlF-STH90czyrUsiu_qQZA4NtE5yeEgniQ5DaYYBiEKhd4OsE-kBLs9YYlitduEeA=w900-h500-k-no",
             address: "QPG5+G85 Dumangas-Naluoyan Port, Dumangas, Iloilo",
             markCoords: [10.777073807910764, 122.70828539466444],
             traffic: {
@@ -1002,7 +1002,7 @@ export default function MapMain(props) {
         },
         {
             portName: "Bay-Ang, Ajuy Roro Port",
-            portImage: "Port Image",
+            portImage: "https://lh3.googleusercontent.com/gps-cs-s/AHVAweqd5Jo63Dk4ifo4WmoSSbhJt9PO3GOq5y8akcLEl5dio4W2nfNS1TBWuTO7hHHBWR2i_6LRHF1l_4oAS6iSXWbNhE1sT0mIS69nyH3YThCNZmeUgNw-C53PjwGmjT4-9k1-TfwrBA=w900-h500-k-no",
             address: "2WVP+Q29, Ajuy, Iloilo",
             markCoords: [11.04450190966244, 122.93504980826703],
             traffic: {
