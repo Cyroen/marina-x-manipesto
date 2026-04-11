@@ -1,0 +1,141 @@
+.navbar_main{
+    position: fixed;
+    top: 0;
+    left: 0;
+    right: 0;
+    z-index: 1000;
+}
+
+.link_nav{
+    transition: .200s all ease;
+    cursor: pointer;
+    text-decoration: none;
+    svg, div{
+        color: #000;
+    }
+    &:hover{
+        svg, div{
+            color: #fff;
+        }
+        background: #9f55f5;
+    }
+}
+
+.nav_account{
+    transition: .200s all ease;
+    display: flex;
+    align-items: center;
+    flex-direction: row;
+    background-color: white;
+    border-radius: 50%;
+    cursor: pointer;
+    .account_name{
+        transition: .200s all ease;
+        max-width: 0px;
+        max-height: 0px;
+        overflow: hidden;
+        white-space: nowrap;
+    }
+    &:hover{
+        gap: 12px;
+        .account_name{
+            max-width: 250px;
+            max-height: 100px;
+        }
+        padding-right: 24px;
+        border-radius: 50px;
+    }
+}
+
+.table_cell{
+    position: relative;
+    &::after{
+        content: "";
+        display: block;
+        height: 50%;
+        width: 1px;
+        background: #000;
+        position: absolute;
+        top: 0;
+        bottom: 0;
+        right: 0;
+        margin: auto;
+        opacity: .2;
+    }
+}
+
+
+.info_box{
+    border: 3px dashed #dfdede;
+    position: relative;
+    display: flex;
+    flex-direction: column;
+    &.no_border{
+        border: none!important;
+        .label{
+            border: 1px solid #000;
+        }
+    }
+    .label{
+        background: #fff;
+        border-radius: 20px;
+        padding: 3px 10px;
+        position: absolute;
+        top: -15px;
+        left: 30px;
+    }
+}
+
+.info_dot{
+    position: relative;
+    padding-left: 20px;
+    &.white{
+        &::before{
+            background: #f2f2f2;
+        }
+        &::after{
+            border-color: #f2f2f2!important;
+        }
+    }
+    &::before{
+        content: "";
+        display: block;
+        position: absolute;
+        left: 0;
+        top: 4px;
+        margin: auto;
+        width: 10px;
+        height: 10px;
+        background: #000;
+        border-radius: 50%;
+    }
+    &:first-child{
+        &::after{
+            content: "";
+            border-left: 3px dashed #000;
+            width: 0px;
+            height: 100%;
+            display: block;
+            top: 11px;
+            bottom: 0;
+            position: absolute;
+            left: 3px;;
+        }
+    }
+}
+
+
+.chip_anchor-top-left{
+    position: absolute;
+    top: -13px;
+    right: 20px;
+}
+
+
+@media only screen and (min-width: 600px) {  
+    .chip_anchor-top-left{
+        position: relative;
+        top: auto;
+        right: auto;
+    }
+}

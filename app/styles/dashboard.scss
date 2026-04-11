@@ -1,0 +1,31 @@
+body{
+    margin: 0;
+}
+
+.map_main{
+    width: 100%;
+    min-height: 100vh;
+}
+
+.outer_chart_container{
+    transition: .3s all ease;
+    position: fixed;
+    bottom: 20px;
+    right: 0;
+    left: 0;
+    &.open{
+        z-index: 5000;
+        margin-left: 400px;
+    }
+    &.close{
+        z-index: 500;
+        margin-left: 0px;
+    }
+}
+
+.chart-outer_container{
+    transition: .3s all ease;
+    .chart-outer_flex{
+        transition: .3s all ease;
+    }
+}

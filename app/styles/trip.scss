@@ -1,0 +1,21 @@
+.tab_container{
+    position: relative;
+    display: flex;
+    flex-direction: column;
+    &::before{
+        content: "";
+        display: block;
+        top: -30px;
+        left: 0;
+        width: 40%;
+        height: 50px;
+        background: inherit;
+        border-top-left-radius: 30px;
+        border-top-right-radius: 30px;
+        position: absolute;
+    }
+}
+
+body{
+    background-color: #f2f2f2;
+}

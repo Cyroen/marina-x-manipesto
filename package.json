@@ -1,0 +1,36 @@
+{
+  "name": "marinapesto",
+  "version": "0.1.0",
+  "private": true,
+  "scripts": {
+    "dev": "next dev",
+    "build": "next build",
+    "start": "next start"
+  },
+  "dependencies": {
+    "@emotion/react": "^11.14.0",
+    "@emotion/styled": "^11.14.1",
+    "@mui/icons-material": "^7.3.9",
+    "@mui/material": "^7.3.9",
+    "@mui/x-charts": "^8.28.2",
+    "axios": "^1.13.6",
+    "date-fns": "^4.1.0",
+    "html5-qrcode": "^2.3.8",
+    "leaflet": "^1.9.4",
+    "leaflet-defaulticon-compatibility": "^0.1.2",
+    "modern-screenshot": "^4.6.8",
+    "next": "16.2.1",
+    "papaparse": "^5.5.3",
+    "qr-scanner": "^1.4.2",
+    "react": "19.2.4",
+    "react-dom": "19.2.4",
+    "react-dropzone": "^15.0.0",
+    "react-hook-form": "^7.72.0",
+    "react-leaflet": "^5.0.0",
+    "react-player": "^3.4.0",
+    "sass": "^1.98.0"
+  },
+  "devDependencies": {
+    "@types/leaflet": "^1.9.21"
+  }
+}
