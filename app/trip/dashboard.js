@@ -170,8 +170,7 @@ export default function DashboardTrip() {
             gender: 'Male',
             dob: new Date('1/30/2000'),
             address: 'Sta. Teresa, Jordan, Guimaras',
-            designation: 'manipesto.ph',
-            status: 'Verified',
+            designation: 'Captain',
             license: {
                 number: '101-00023',
                 issuedBy: "MROVI ",
@@ -184,8 +183,7 @@ export default function DashboardTrip() {
             gender: 'Male',
             dob: new Date('1/30/2000'),
             address: 'Sta. Teresa, Jordan, Guimaras',
-            designation: 'manipesto.ph',
-            status: 'Verified',
+            designation: 'Captain',
             license: {
                 number: '101-00023',
                 issuedBy: "MROVI ",
@@ -198,8 +196,7 @@ export default function DashboardTrip() {
             gender: 'Male',
             dob: new Date('1/30/2000'),
             address: 'Sta. Teresa, Jordan, Guimaras',
-            designation: 'manipesto.ph',
-            status: 'Verified',
+            designation: 'Captain',
             license: {
                 number: '101-00023',
                 issuedBy: "MROVI ",
@@ -212,8 +209,7 @@ export default function DashboardTrip() {
             gender: 'Male',
             dob: new Date('1/30/2000'),
             address: 'Sta. Teresa, Jordan, Guimaras',
-            designation: 'manipesto.ph',
-            status: 'Verified',
+            designation: 'Captain',
             license: {
                 number: '101-00023',
                 issuedBy: "MROVI ",
@@ -226,8 +222,7 @@ export default function DashboardTrip() {
             gender: 'Male',
             dob: new Date('1/30/2000'),
             address: 'Sta. Teresa, Jordan, Guimaras',
-            designation: 'manipesto.ph',
-            status: 'Verified',
+            designation: 'Captain',
             license: {
                 number: '101-00023',
                 issuedBy: "MROVI ",

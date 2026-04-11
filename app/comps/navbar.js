@@ -55,7 +55,7 @@ export default function NavBar({title, return_link, sidebarOpen}) {
                             mx: 'auto'
                         }}>
                             <Image style={{width: 32, height: 32, margin: "auto", objectFit: 'contain'}} width={50} height={50} src={'/images/logos/marina.webp'} alt="marina logo"></Image>
-                            <Typography my="auto" flex={1} ml={1} variant='h6' fontWeight={'bold'} component={'h1'}>{title}</Typography>
+                            <Typography my="auto" flex={1} ml={1} variant='body1' fontWeight={'bold'} component={'h1'}>{title}</Typography>
                         </Box>
                     </Box>
                     <Box flex={1}>

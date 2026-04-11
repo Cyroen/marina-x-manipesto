@@ -28,7 +28,7 @@ export default function DashboardMain() {
 
     return (
         <div>
-            <NavBar title="MARINA Realtime Monitoring Dashboard" sidebarOpen={portDetailOpen}></NavBar>
+            <NavBar title="[DEMO] MARINA Realtime Monitoring Dashboard" sidebarOpen={portDetailOpen}></NavBar>
             <Map onPortOpenClick={(e)=> {
                 setPortDetailOpen(true)
             }} onPortCloseClick={(e)=> {

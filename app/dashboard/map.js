@@ -78,7 +78,7 @@ function MarkerMap({data, onPortOpenClick, onPortCloseClick}){
                             <Typography variant="subtitle2" sx={{opacity: 0.6}}>2:00 AM</Typography>
                         </Box>
                         <Box flex={3}>
-                            <Typography variant="body1">Arrival</Typography>
+                            <Typography variant="body1">{data?.arrival?.port}</Typography>
                             <Typography variant="subtitle2" sx={{opacity: 0.6}}>{data?.arrival?.address}</Typography>
                         </Box>
                     </Stack>
@@ -88,7 +88,7 @@ function MarkerMap({data, onPortOpenClick, onPortCloseClick}){
                             <Typography variant="subtitle2" sx={{opacity: 0.6}}>2:00 AM</Typography>
                         </Box>
                         <Box flex={3}>
-                            <Typography variant="body1">Origin</Typography>
+                            <Typography variant="body1">{data?.origin?.port}</Typography>
                             <Typography variant="subtitle2" sx={{opacity: 0.6}}>{data?.origin?.address}</Typography>
                         </Box>
                     </Stack>
@@ -139,7 +139,7 @@ function MarkerMap({data, onPortOpenClick, onPortCloseClick}){
                                 </Stack>
                             </Stack>
                         </Stack>
-                        <Stack direction={'row'} gap={1} className={`${data?.images?.length > 4 ? 'has_more' : ''} image_list`}>
+                        <Stack direction={'row'} gap={1} className={`image_list`}>
                             {data?.images && data?.images?.map((a, i) => {
                                 if(i>3) return;
                                 return (
@@ -308,7 +308,7 @@ function MarkerMap({data, onPortOpenClick, onPortCloseClick}){
                                 </IconButton>
                             </Box>
                         </Box>
-                        <Button sx={{mt: 2, ml: "auto", width: 'max-content'}} variant="text" endIcon={<ChevronRight></ChevronRight>}>See more</Button>
+                        <Button LinkComponent={Link} href="/trip" sx={{mt: 2, ml: "auto", width: 'max-content'}} variant="text" endIcon={<ChevronRight></ChevronRight>}>See more</Button>
                     </Stack>
                 </CustomTabPanel>
                 
@@ -390,52 +390,12 @@ export default function MapMain(props) {
                     masterName: "Juan Dela Cruz",
                     photo: "",
                     origin: {
-                        address: "Buenavista Wharf",
+                        port: 'MacArthurs Wharf Ferry Terminal',
+                        address: "MacArthurs Wharf Ferry Terminal, Sto. Rosario, Buenavista",
                         date: new Date()
                     },
                     arrival: {
-                        address: "Parola Ferry Terminal, Iloilo City",
-                        date: new Date()
-                    },
-                },
-                {
-                    vessel: "Vessel Name",
-                    pax: 100,
-                    masterName: "Juan Dela Cruz",
-                    photo: "",
-                    origin: {
-                        address: "Buenavista Wharf",
-                        date: new Date()
-                    },
-                    arrival: {
-                        address: "Parola Ferry Terminal, Iloilo City",
-                        date: new Date()
-                    },
-                },
-                {
-                    vessel: "Vessel Name",
-                    pax: 100,
-                    masterName: "Juan Dela Cruz",
-                    photo: "",
-                    origin: {
-                        address: "Buenavista Wharf",
-                        date: new Date()
-                    },
-                    arrival: {
-                        address: "Parola Ferry Terminal, Iloilo City",
-                        date: new Date()
-                    },
-                },
-                {
-                    vessel: "Vessel Name",
-                    pax: 100,
-                    masterName: "Juan Dela Cruz",
-                    photo: "",
-                    origin: {
-                        address: "Buenavista Wharf",
-                        date: new Date()
-                    },
-                    arrival: {
+                        port: 'Parola Ferry Terminal',
                         address: "Parola Ferry Terminal, Iloilo City",
                         date: new Date()
                     },
@@ -485,25 +445,25 @@ export default function MapMain(props) {
             ],
             operatorList: [
                 {
-                    name: "Juan Dela Cruz",
+                    name: "SG8 Maritime, Inc.",
                     photo: "",
                     vesselCount: '050',
                     images: ['', '', '', '', '']
                 },
                 {
-                    name: "Juan Dela Cruz",
+                    name: "SG8 Maritime, Inc.",
                     photo: "",
                     vesselCount: '050',
                     images: ['', '', '', '']
                 },
                 {
-                    name: "Juan Dela Cruz",
+                    name: "SG8 Maritime, Inc.",
                     photo: "",
                     vesselCount: '050',
                     images: ['', '', '', '', '', '']
                 },
                 {
-                    name: "Juan Dela Cruz",
+                    name: "SG8 Maritime, Inc.",
                     photo: "",
                     vesselCount: '050',
                     images: ['', '', '']
@@ -542,52 +502,12 @@ export default function MapMain(props) {
                     masterName: "Juan Dela Cruz",
                     photo: "",
                     origin: {
-                        address: "Buenavista Wharf",
+                        port: 'MacArthurs Wharf Ferry Terminal',
+                        address: "MacArthurs Wharf Ferry Terminal, Sto. Rosario, Buenavista",
                         date: new Date()
                     },
                     arrival: {
-                        address: "Parola Ferry Terminal, Iloilo City",
-                        date: new Date()
-                    },
-                },
-                {
-                    vessel: "Vessel Name",
-                    pax: 100,
-                    masterName: "Juan Dela Cruz",
-                    photo: "",
-                    origin: {
-                        address: "Buenavista Wharf",
-                        date: new Date()
-                    },
-                    arrival: {
-                        address: "Parola Ferry Terminal, Iloilo City",
-                        date: new Date()
-                    },
-                },
-                {
-                    vessel: "Vessel Name",
-                    pax: 100,
-                    masterName: "Juan Dela Cruz",
-                    photo: "",
-                    origin: {
-                        address: "Buenavista Wharf",
-                        date: new Date()
-                    },
-                    arrival: {
-                        address: "Parola Ferry Terminal, Iloilo City",
-                        date: new Date()
-                    },
-                },
-                {
-                    vessel: "Vessel Name",
-                    pax: 100,
-                    masterName: "Juan Dela Cruz",
-                    photo: "",
-                    origin: {
-                        address: "Buenavista Wharf",
-                        date: new Date()
-                    },
-                    arrival: {
+                        port: 'Parola Ferry Terminal',
                         address: "Parola Ferry Terminal, Iloilo City",
                         date: new Date()
                     },
@@ -637,25 +557,25 @@ export default function MapMain(props) {
             ],
             operatorList: [
                 {
-                    name: "Juan Dela Cruz",
+                    name: "SG8 Maritime, Inc.",
                     photo: "",
                     vesselCount: '050',
                     images: ['', '', '', '', '']
                 },
                 {
-                    name: "Juan Dela Cruz",
+                    name: "SG8 Maritime, Inc.",
                     photo: "",
                     vesselCount: '050',
                     images: ['', '', '', '']
                 },
                 {
-                    name: "Juan Dela Cruz",
+                    name: "SG8 Maritime, Inc.",
                     photo: "",
                     vesselCount: '050',
                     images: ['', '', '', '', '', '']
                 },
                 {
-                    name: "Juan Dela Cruz",
+                    name: "SG8 Maritime, Inc.",
                     photo: "",
                     vesselCount: '050',
                     images: ['', '', '']
@@ -694,52 +614,12 @@ export default function MapMain(props) {
                     masterName: "Juan Dela Cruz",
                     photo: "",
                     origin: {
-                        address: "Buenavista Wharf",
+                        port: 'MacArthurs Wharf Ferry Terminal',
+                        address: "MacArthurs Wharf Ferry Terminal, Sto. Rosario, Buenavista",
                         date: new Date()
                     },
                     arrival: {
-                        address: "Parola Ferry Terminal, Iloilo City",
-                        date: new Date()
-                    },
-                },
-                {
-                    vessel: "Vessel Name",
-                    pax: 100,
-                    masterName: "Juan Dela Cruz",
-                    photo: "",
-                    origin: {
-                        address: "Buenavista Wharf",
-                        date: new Date()
-                    },
-                    arrival: {
-                        address: "Parola Ferry Terminal, Iloilo City",
-                        date: new Date()
-                    },
-                },
-                {
-                    vessel: "Vessel Name",
-                    pax: 100,
-                    masterName: "Juan Dela Cruz",
-                    photo: "",
-                    origin: {
-                        address: "Buenavista Wharf",
-                        date: new Date()
-                    },
-                    arrival: {
-                        address: "Parola Ferry Terminal, Iloilo City",
-                        date: new Date()
-                    },
-                },
-                {
-                    vessel: "Vessel Name",
-                    pax: 100,
-                    masterName: "Juan Dela Cruz",
-                    photo: "",
-                    origin: {
-                        address: "Buenavista Wharf",
-                        date: new Date()
-                    },
-                    arrival: {
+                        port: 'Parola Ferry Terminal',
                         address: "Parola Ferry Terminal, Iloilo City",
                         date: new Date()
                     },
@@ -789,25 +669,25 @@ export default function MapMain(props) {
             ],
             operatorList: [
                 {
-                    name: "Juan Dela Cruz",
+                    name: "SG8 Maritime, Inc.",
                     photo: "",
                     vesselCount: '050',
                     images: ['', '', '', '', '']
                 },
                 {
-                    name: "Juan Dela Cruz",
+                    name: "SG8 Maritime, Inc.",
                     photo: "",
                     vesselCount: '050',
                     images: ['', '', '', '']
                 },
                 {
-                    name: "Juan Dela Cruz",
+                    name: "SG8 Maritime, Inc.",
                     photo: "",
                     vesselCount: '050',
                     images: ['', '', '', '', '', '']
                 },
                 {
-                    name: "Juan Dela Cruz",
+                    name: "SG8 Maritime, Inc.",
                     photo: "",
                     vesselCount: '050',
                     images: ['', '', '']
@@ -846,10 +726,12 @@ export default function MapMain(props) {
                     masterName: "Juan Dela Cruz",
                     photo: "",
                     origin: {
-                        address: "Buenavista Wharf",
+                        port: 'MacArthurs Wharf Ferry Terminal',
+                        address: "MacArthurs Wharf Ferry Terminal, Sto. Rosario, Buenavista",
                         date: new Date()
                     },
                     arrival: {
+                        port: 'Parola Ferry Terminal',
                         address: "Parola Ferry Terminal, Iloilo City",
                         date: new Date()
                     },
@@ -869,7 +751,7 @@ export default function MapMain(props) {
             ],
             operatorList: [
                 {
-                    name: "Juan Dela Cruz",
+                    name: "SG8 Maritime, Inc.",
                     photo: "",
                     vesselCount: '050',
                     images: ['']
@@ -908,10 +790,12 @@ export default function MapMain(props) {
                     masterName: "Juan Dela Cruz",
                     photo: "",
                     origin: {
-                        address: "Buenavista Wharf",
+                        port: 'MacArthurs Wharf Ferry Terminal',
+                        address: "MacArthurs Wharf Ferry Terminal, Sto. Rosario, Buenavista",
                         date: new Date()
                     },
                     arrival: {
+                        port: 'Parola Ferry Terminal',
                         address: "Parola Ferry Terminal, Iloilo City",
                         date: new Date()
                     },
@@ -931,7 +815,7 @@ export default function MapMain(props) {
             ],
             operatorList: [
                 {
-                    name: "Juan Dela Cruz",
+                    name: "SG8 Maritime, Inc.",
                     photo: "",
                     vesselCount: '050',
                     images: ['']
@@ -970,10 +854,12 @@ export default function MapMain(props) {
                     masterName: "Juan Dela Cruz",
                     photo: "",
                     origin: {
-                        address: "Buenavista Wharf",
+                        port: 'MacArthurs Wharf Ferry Terminal',
+                        address: "MacArthurs Wharf Ferry Terminal, Sto. Rosario, Buenavista",
                         date: new Date()
                     },
                     arrival: {
+                        port: 'Parola Ferry Terminal',
                         address: "Parola Ferry Terminal, Iloilo City",
                         date: new Date()
                     },
@@ -993,7 +879,7 @@ export default function MapMain(props) {
             ],
             operatorList: [
                 {
-                    name: "Juan Dela Cruz",
+                    name: "SG8 Maritime, Inc.",
                     photo: "",
                     vesselCount: '050',
                     images: ['']
@@ -1032,10 +918,12 @@ export default function MapMain(props) {
                     masterName: "Juan Dela Cruz",
                     photo: "",
                     origin: {
-                        address: "Buenavista Wharf",
+                        port: 'MacArthurs Wharf Ferry Terminal',
+                        address: "MacArthurs Wharf Ferry Terminal, Sto. Rosario, Buenavista",
                         date: new Date()
                     },
                     arrival: {
+                        port: 'Parola Ferry Terminal',
                         address: "Parola Ferry Terminal, Iloilo City",
                         date: new Date()
                     },
@@ -1055,7 +943,7 @@ export default function MapMain(props) {
             ],
             operatorList: [
                 {
-                    name: "Juan Dela Cruz",
+                    name: "SG8 Maritime, Inc.",
                     photo: "",
                     vesselCount: '050',
                     images: ['']
