@@ -91,7 +91,7 @@ function ProgressChart(props){
                 <Box key={i} sx={{
                     display: 'flex',
                     flexDirection: 'row',
-                    alignItems: 'center',
+                    alignItems: 'flex-start',
                     '&::before': {
                         content: "''",
                         display: 'block',
