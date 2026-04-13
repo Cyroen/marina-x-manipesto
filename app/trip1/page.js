@@ -1,6 +1,6 @@
 'use client'
 
-import { Fragment } from "react";
+import { Fragment, Suspense } from "react";
 import DashboardTrip from "./dashboard";
 import NavBar from "../comps/navbar";
 import { Box } from "@mui/material";
@@ -13,11 +13,11 @@ export default function Home() {
   const search = searchParams.get('v')
 
   return (
-    <Fragment>
+    <Suspense fallback={<div>Loading...</div>}>
         <NavBar return_link="/" title={`[DEMO] Full Trip Preview - ${search.replace("-", " ")}`}></NavBar>
         <Box mt={15}>
             <DashboardTrip></DashboardTrip>
         </Box>
-    </Fragment>
+    </Suspense>
   );
 }
