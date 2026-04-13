@@ -1,14 +1,14 @@
 import { Fragment } from "react";
-import DashboardTrip from "./dashboard";
 import NavBar from "../comps/navbar";
 import { Box } from "@mui/material";
+import DashboardTripList from "./dashboard";
 
 export default function Home() {
   return (
     <Fragment>
-        <NavBar return_link="/" title="Full Trip Preview"></NavBar>
+        <NavBar return_link="/" title="[DEMO] List of Trips"></NavBar>
         <Box mt={15}>
-            <DashboardTrip></DashboardTrip>
+          <DashboardTripList></DashboardTripList>
         </Box>
     </Fragment>
   );

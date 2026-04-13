@@ -64,10 +64,13 @@ function MarkerMap({data, onPortOpenClick, onPortCloseClick}){
         iconAnchor: [0, 0],
     });
 
-    function TripBox({data}){
+    function TripBox({data, link}){
         return <Box p={2} sx={{borderRadius: 4, boxShadow: "1px 4px 9px 4px rgba(0, 0, 0, 0.1)", bgcolor: "white"}}>
                 <Stack direction={'row'} justifyContent={'space-between'} alignItems={'center'}>
-                    <Typography variant="body1" fontWeight={'bold'}>Vessel Name</Typography>
+                    <Box>
+                        <Typography variant="body1" fontWeight={'bold'}>Vessel Name</Typography>
+                        <Typography variant="body2">SG8 Maritime, inc.</Typography>
+                    </Box>
                     <Chip size="medium" label="100 pax" variant="contained" sx={{color: "white", bgcolor: 'primary.main'}}></Chip>
                 </Stack>
                 <Divider sx={{my: 2}}></Divider>
@@ -103,7 +106,7 @@ function MarkerMap({data, onPortOpenClick, onPortCloseClick}){
                         </Box>
                     </Stack>
                     <Tooltip title="Expand" sx={{ml: 'auto'}}>
-                        <IconButton variant="contained" href={'/trip'} LinkComponent={Link}>
+                        <IconButton variant="contained" href={link} LinkComponent={Link}>
                             <OpenInFull></OpenInFull>
                         </IconButton>
                     </Tooltip>
@@ -308,7 +311,7 @@ function MarkerMap({data, onPortOpenClick, onPortCloseClick}){
                                 </IconButton>
                             </Box>
                         </Box>
-                        <Button LinkComponent={Link} href="/trip" sx={{mt: 2, ml: "auto", width: 'max-content'}} variant="text" endIcon={<ChevronRight></ChevronRight>}>See more</Button>
+                        <Button LinkComponent={Link} href={`${data?.link}?v=${data?.portName?.replace(" ", "-")}`} sx={{mt: 2, ml: "auto", width: 'max-content'}} variant="text" endIcon={<ChevronRight></ChevronRight>}>See more</Button>
                     </Stack>
                 </CustomTabPanel>
                 
@@ -316,7 +319,7 @@ function MarkerMap({data, onPortOpenClick, onPortCloseClick}){
                 <CustomTabPanel value={tabVal} index={1}>
                     <Stack p={3} direction={'column'} gap={2}>
                         {data?.tripList ? data?.tripList?.map((a, i) => (
-                            <TripBox data={a} key={i}></TripBox>
+                            <TripBox data={a} key={i} link={`${data?.link}?v=${data?.portName?.replace(" ", "-")}`}></TripBox>
                         )) : <Typography variant="h5" textAlign={'center'}>No List found</Typography>}
                     </Stack>
                 </CustomTabPanel>
@@ -363,6 +366,7 @@ export default function MapMain(props) {
             portImage: "https://lh3.googleusercontent.com/gps-cs-s/AHVAwepNSy9Tklavb409A-CvGFWHm_21mV8CeNWufjJyUzvKtwtBH07x9euzbDcVCJflXClpSs2Vf7_xllwHx4sErO2nGjcWwEwQ0zzwpM5cDGokC6w7Zdkrs25UiUEuCGRPOG4Lg1pDds6QXCPi=s696-k-no",
             address: "Jordan Wharf, Jordan, Guimaras",
             markCoords: [10.66711787840169, 122.58935371527645],
+            link: "/trip1",
             traffic: {
                 passengers: '150,321',
                 trips: 120
@@ -475,6 +479,7 @@ export default function MapMain(props) {
             portImage: "https://lh3.googleusercontent.com/gps-cs-s/AHVAwerh9Y2sUQuIFh8SRbIA0aMi2XkyKx-KjWQBtBVRQ-e1DrjbPaKwTdD-MaOY7IGEbsjhZWY2svWQ7ihZarf3fH9XskZvwxY7rvE-JgxIYAMUbBtddNN7K_fga4U2Kf963m0PBNjU8g=w900-h500-k-no",
             address: "Iloilo Ferry Terminal, Iloilo City",
             markCoords: [10.692394310335989, 122.58350739919098],
+            link: "/trip2",
             traffic: {
                 passengers: '150,321',
                 trips: 120
@@ -587,6 +592,7 @@ export default function MapMain(props) {
             portImage: "https://lh3.googleusercontent.com/gps-cs-s/AHVAwepxWogynadtcJoorh0Uyi0IsZBq696jPMYrsX9IyM2UAV_J3JXaLZiZppmwFM5t2dessJVdhpGzEPtL5lMsBL88Xqih5WbcbNFNB8bFI94LKJIP6Vw4xBgVwmOgjWSnL01VXK9W=w900-h500-k-no",
             address: "MacArthurs Wharf Ferry Terminal, Sto. Rosario, Buenavista",
             markCoords: [10.688715959205636, 122.61303808168424],
+            link: "/trip1",
             traffic: {
                 passengers: '150,321',
                 trips: 120
@@ -699,6 +705,7 @@ export default function MapMain(props) {
             portImage: "https://lh3.googleusercontent.com/gps-cs-s/AHVAwervoqXHg6J4_iKUphVZ8FOyokgvaB2jSMLtup0S5BnLkyLTHmysKY_HafvJrKN3pxBTs_PuyHJrD3EUpV0j7gml3xpVmqz5lPhKaZpctVDkZfXerWn7eIZjtTp-gThdsf0dCYPR=w900-h500-k-no",
             address: "Jordan RoRo Port, Jordan, Guimaras",
             markCoords: [10.6657357021, 122.58470589214062],
+            link: "/trip2",
             traffic: {
                 passengers: '120,321',
                 trips: 230
@@ -763,6 +770,7 @@ export default function MapMain(props) {
             portImage: "https://lh3.googleusercontent.com/gps-cs-s/AHVAwerbKHaS3YA_0Sw7JDgFsZYfeAqarrOoJ7WhSQmlO69MC3TwWI29Xdbgv9H5PbNYAHOogeXSkT3PIdPZLi121rOFiimWHepGssGUwU5kCB7RZ2tuIDCMvmuRIuLRdWYq3azOFwtCMw=w900-h500-k-no",
             address: "BREDCO Seaport, Bacolod, 6100 Negros Occidental",
             markCoords: [10.676682243081036, 122.94050390980276],
+            link: "/trip1",
             traffic: {
                 passengers: '120,321',
                 trips: 230
@@ -827,6 +835,7 @@ export default function MapMain(props) {
             portImage: "https://lh3.googleusercontent.com/gps-cs-s/AHVAwepf6OTNHHW9UPaF30xTpCIt5ynAmEOp0qnwU8RaxUzVATFNGN8f5lDB5PavegHzvjIo_bz6aWlF-STH90czyrUsiu_qQZA4NtE5yeEgniQ5DaYYBiEKhd4OsE-kBLs9YYlitduEeA=w900-h500-k-no",
             address: "QPG5+G85 Dumangas-Naluoyan Port, Dumangas, Iloilo",
             markCoords: [10.777073807910764, 122.70828539466444],
+            link: "/trip2",
             traffic: {
                 passengers: '120,321',
                 trips: 230
@@ -891,6 +900,7 @@ export default function MapMain(props) {
             portImage: "https://lh3.googleusercontent.com/gps-cs-s/AHVAweqd5Jo63Dk4ifo4WmoSSbhJt9PO3GOq5y8akcLEl5dio4W2nfNS1TBWuTO7hHHBWR2i_6LRHF1l_4oAS6iSXWbNhE1sT0mIS69nyH3YThCNZmeUgNw-C53PjwGmjT4-9k1-TfwrBA=w900-h500-k-no",
             address: "2WVP+Q29, Ajuy, Iloilo",
             markCoords: [11.04450190966244, 122.93504980826703],
+            link: "/trip2",
             traffic: {
                 passengers: '120,321',
                 trips: 230
