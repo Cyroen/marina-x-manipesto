@@ -1,5 +1,5 @@
 import ThemeProv from "@/app/comps/themeprov";
-import { Fragment } from "react";
+import { Fragment, Suspense } from "react";
 
 export const metadata = {
   title: "marinapesto",
@@ -8,6 +8,6 @@ export const metadata = {
 
 export default function RootLayout({ children }) {
   return (
-    <Fragment>{children}</Fragment>
+    <Suspense fallback={<div>Loading...</div>}>{children}</Suspense>
   );
 }
