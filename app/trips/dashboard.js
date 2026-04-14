@@ -245,68 +245,64 @@ export default function DashboardTripList() {
                                     <FilterAlt></FilterAlt>
                                 </IconButton>
                             </Box>
-                            <Stack sx={{overflow: 'auto', position: 'relative', '&::-webkit-scrollbar': {width: 0}, maxHeight: 1000}} flex={1} gap={2} px={6} pb={6}>
+                            <Stack sx={{overflow: 'auto', position: 'relative', '&::-webkit-scrollbar': {width: 0}, maxHeight: 1000}} flex={1} gap={2} px={6} pb={2}>
                                 <TripBox link="/trip1"></TripBox>
                                 <TripBox link="/trip1"></TripBox>
                                 <TripBox link="/trip1"></TripBox>
                                 <TripBox link="/trip1"></TripBox>
                             </Stack>
+                            <Box px={6}>
+                                <Button fullWidth variant="contained">See more</Button>
+                            </Box>
                         </Stack>
                     </Box>
                 </Stack>
-                <Stack flex={2} direction={'column'} gap={2} maxWidth={{xs: 'none', lg: '50%'}} width={'100%'}>
+                <Stack flex={2} direction={'column'} gap={2} maxWidth={{xs: 'none', lg: '55%'}} width={'100%'}>
                     <Box flex={1} p={4} sx={{bgcolor: "primary.main", borderRadius: 4}}>
                         <Stack borderRadius={4} gap={4}>
                             <Stack gap={2} direction={'row'} alignItems={'center'} flex={1}>
                                 <Typography variant="h4" component={'h1'} fontWeight={'bold'} color="white">Most Recent Trip</Typography>
                                 <Button LinkComponent={Link} href="/trip1?v=Jordan-Wharf" variant="text" sx={{color: "#fff", ml: 'auto'}} color="#fff" endIcon={<ChevronRight></ChevronRight>}>More Details</Button>
                             </Stack>
-                            <Stack mt={2} flexWrap={'wrap'} direction={'row'} position={'relative'} height={{xs: 'auto', lg: 200}} gap={1}>
-                                <Box sx={{position: 'relative', flex: 2, borderRadius: 4, overflow: 'hidden', minWidth: 200, width: '100%', height: {xs: 200, lg: 'auto'}}}>
-                                    <Image style={{objectFit: 'cover'}} src="/images/placeholders/landscape.jpg" alt="Placeholder" fill></Image>
-                                </Box>
-                                <Stack p={2} flex={2} direction={'column'} sx={{bgcolor: "#fff", borderRadius: 4}}>
-                                    <Stack direction={'column'}>
-                                        <Typography variant="h4">Vessel Name</Typography>
-                                        <Typography variant="body1">ID: Vessel ID</Typography>
-                                    </Stack>
-                                    <Stack mt={'auto'} direction={'row'} gap={1} sx={{bgcolor: "white", px: 1, py: .5, borderRadius: 10, position: 'relative', zIndex: 100, width: 'max-content'}}>
-                                        <Avatar sx={{width: 30, height: 30, my: 'auto'}}></Avatar>
-                                        <Typography my="auto" variant="body1">SG8 Maritime, Inc</Typography>
-                                        <IconButton sx={{ml: 2}}>
-                                            <Fullscreen></Fullscreen>
-                                        </IconButton>
-                                    </Stack>
+                            <Stack direction={'row'} flex={1} gap={2}>
+                                <Stack flex={1} flexWrap={'wrap'} direction={'row'} position={'relative'} height={{xs: 'auto', lg: 200}} gap={1}>
+                                    <Box p={3} sx={{position: 'relative', flex: 2, borderRadius: 4, overflow: 'hidden', minWidth: 200, width: '100%', height: {xs: 200, lg: 'auto'}, display: 'flex'}}>
+                                        <Image style={{objectFit: 'cover'}} src="/images/placeholders/landscape.jpg" alt="Placeholder" fill></Image>
+                                        <Stack mt={'auto'} zIndex={100} position={'relative'} direction={'column'}>
+                                            <Typography variant="h5" fontWeight={'bold'}>Vessel Name</Typography>
+                                            <Typography variant="body1">SG8 Maritime, Inc.</Typography>
+                                        </Stack>
+                                    </Box>
                                 </Stack>
-                            </Stack>
-                            <Box className="info_box white" p={2} borderRadius={4} sx={{boxShadow: "1px 4px 9px 4px rgba(0, 0, 0, 0.05)"}}>
-                                <Typography variant="body1" className="label">Route</Typography>
-                                <Box p={2} sx={{borderRadius: 4, bgcolor: 'primary.main'}}>
-                                    <Stack direction={'column'} gap={1}>
-                                        <Stack className="info_dot white" flex={1} direction={'row'} gap={1}>
-                                            <Box flex={2}>
-                                                <Typography color="white" variant="body1">06.05.2025</Typography>
-                                                <Typography color="white" variant="subtitle2" sx={{opacity: 0.6}}>7:20 AM • ETA</Typography>
-                                            </Box>
-                                            <Box flex={3}>
-                                                <Typography color="white" variant="body1">Arrival</Typography>
-                                                <Typography color="white" variant="subtitle2" sx={{opacity: 0.6}}>Parola Ferry Terminal</Typography>
-                                            </Box>
+                                <Box flex={1} className="info_box white" p={2} borderRadius={4} sx={{boxShadow: "1px 4px 9px 4px rgba(0, 0, 0, 0.05)"}}>
+                                    <Typography variant="body1" className="label">Route</Typography>
+                                    <Box p={2} sx={{borderRadius: 4, bgcolor: 'primary.main'}}>
+                                        <Stack direction={'column'} gap={1}>
+                                            <Stack className="info_dot white" flex={1} direction={'row'} gap={1}>
+                                                <Box flex={2}>
+                                                    <Typography color="white" variant="body1">06.05.2025</Typography>
+                                                    <Typography color="white" variant="subtitle2" sx={{opacity: 0.6}}>7:20 AM</Typography>
+                                                </Box>
+                                                <Box flex={3}>
+                                                    <Typography color="white" variant="body1">Arrival</Typography>
+                                                    <Typography color="white" variant="subtitle2" sx={{opacity: 0.6}}>Parola Ferry Terminal</Typography>
+                                                </Box>
+                                            </Stack>
+                                            <Stack className="info_dot white" flex={1} direction={'row'} gap={1}>
+                                                <Box flex={2}>
+                                                    <Typography color="white" variant="body1">06.05.2025</Typography>
+                                                    <Typography color="white" variant="subtitle2" sx={{opacity: 0.6}}>7:00 AM</Typography>
+                                                </Box>
+                                                <Box flex={3}>
+                                                    <Typography color="white" variant="body1">Origin</Typography>
+                                                    <Typography color="white" variant="subtitle2" sx={{opacity: 0.6}}>Jordan Wharf, Jordan, Guimaras</Typography>
+                                                </Box>
+                                            </Stack>
                                         </Stack>
-                                        <Stack className="info_dot white" flex={1} direction={'row'} gap={1}>
-                                            <Box flex={2}>
-                                                <Typography color="white" variant="body1">06.05.2025</Typography>
-                                                <Typography color="white" variant="subtitle2" sx={{opacity: 0.6}}>7:00 AM • ATD</Typography>
-                                            </Box>
-                                            <Box flex={3}>
-                                                <Typography color="white" variant="body1">Origin</Typography>
-                                                <Typography color="white" variant="subtitle2" sx={{opacity: 0.6}}>Jordan Wharf, Jordan, Guimaras</Typography>
-                                            </Box>
-                                        </Stack>
-                                    </Stack>
+                                    </Box>
                                 </Box>
-                            </Box>
-                            <Box py={2} px={4} borderRadius={4} sx={{ bgcolor: 'background.main', position: 'relative'}}>
+                            </Stack>
+                            <Box py={2} px={4} borderRadius={4} sx={{ bgcolor: '#fff', position: 'relative'}}>
                                 <Stack mb={2} direction={'row'} alignItems={'center'}>
                                     <Stack direction={'row'} alignItems={'center'} gap={2} flexWrap={'wrap'}>
                                         <Avatar sx={{width: 50, height: 50}}></Avatar>
@@ -336,50 +332,36 @@ export default function DashboardTripList() {
                                     </Box>
                                 </Box>
                             </Box>
-                        </Stack>
-                    </Box>
-                    <Stack flex={1} direction={'column'} gap={2} p={4} sx={{bgcolor: "white", borderRadius: 4, overflow: 'auto', position: 'relative'}}>
-                        <Tabs variant="scrollable" slotProps={{
-                            root: {
-                                sx: {
-                                    px: 2,
-                                }
-                            },
-                        }} value={tabVal} onChange={handleChange} aria-label="Tabs">
-                            <Tab label="Summary" {...a11yProps(0)} />
-                            <Tab label="Statistics" {...a11yProps(1)} />
-                        </Tabs>
-                        <CustomTabPanel index={0} value={tabVal}>
-                            <Stack mx={3} direction={'column'} gap={1} alignItems={'center'}>
+                            <Stack sx={{bgcolor: "white", p: 3, borderRadius: 4}} direction={'column'} gap={1} alignItems={'center'}>
                                 <Box sx={{position: 'relative', width: 200}}>
                                     <CircularChart value={count_summary}></CircularChart>
                                 </Box>
                                 <ProgressChart value={count_summary?.sx}></ProgressChart>
                                 <ProgressChart value={count_summary?.ag}></ProgressChart>
                             </Stack>
-                        </CustomTabPanel>
-                        <CustomTabPanel index={1} value={tabVal}>
-                            <Box mx={2} my={3} className="info_box" sx={{borderRadius: 4, bgcolor: "white"}}>
-                                <Typography variant="body1" className="label">Passenger Traffic</Typography>
-                                <Box pt={4} pb={2}>
-                                    <LineChart
-                                        grid={{horizontal: true, vertical: true}}
-                                        xAxis={[{ data: [1, 2, 3, 5, 8, 10] }]}
-                                        series={[
-                                            {
-                                                data: [2, 5.5, 2, 8.5, 1.5, 5],
-                                                label: 'Passenger Traffic'
-                                            },
-                                            {
-                                                data: [5, 1.5, 4, 2.5, 5.5, 101],
-                                                label: 'Trip Traffic'
-                                            },
-                                        ]}
-                                        height={200}
-                                    />
-                                </Box>
+                        </Stack>
+                    </Box>
+                    <Stack flex={1} direction={'column'} gap={2} p={4} sx={{bgcolor: "white", borderRadius: 4, overflow: 'auto', position: 'relative'}}>
+                        <Box mx={2} my={3} className="info_box" sx={{borderRadius: 4, bgcolor: "white"}}>
+                            <Typography variant="body1" className="label">Passenger Traffic</Typography>
+                            <Box pt={4} pb={2}>
+                                <LineChart
+                                    grid={{horizontal: true, vertical: true}}
+                                    xAxis={[{ data: [1, 2, 3, 5, 8, 10] }]}
+                                    series={[
+                                        {
+                                            data: [2, 5.5, 2, 8.5, 1.5, 5],
+                                            label: 'Passenger Traffic'
+                                        },
+                                        {
+                                            data: [5, 1.5, 4, 2.5, 5.5, 101],
+                                            label: 'Trip Traffic'
+                                        },
+                                    ]}
+                                    height={200}
+                                />
                             </Box>
-                        </CustomTabPanel>
+                        </Box>
                     </Stack>
                 </Stack>
             </Stack>
