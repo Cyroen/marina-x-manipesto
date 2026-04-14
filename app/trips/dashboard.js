@@ -305,26 +305,29 @@ export default function DashboardTripList() {
                                                         <Typography variant="subtitle2" color="#fff">0999271531</Typography>
                                                     </Box>
                                                 </Stack>
-                                                <Chip className="chip_anchor-top-left" variant="filled" label="Master" size="large" sx={{color: "primary.main", bgcolor: "white", ml: 'auto', mb: 'auto'}}></Chip>
+                                                <Chip className="chip_anchor-top-left" variant="filled" label="Master" size="large" sx={{color: "primary.main", bgcolor: "white", ml: 'auto', my: 'auto'}}></Chip>
                                             </Stack>
                                         </Stack>
                                     </Box>
                                 </Box>
                             </Stack>
-                            <Stack sx={{bgcolor: "white", p: 3, borderRadius: 4}} direction={'row'} gap={1} alignItems={'center'}>
-                                <Box flex={1} sx={{position: 'relative', minWidth: 200, p: 4}}>
-                                    <CircularChart value={count_summary}></CircularChart>
-                                </Box>
-                                <Box flex={2}>
-                                    <ProgressChart value={count_summary?.sx}></ProgressChart>
-                                    <ProgressChart value={count_summary?.ag}></ProgressChart>
-                                </Box>
-                            </Stack>
+                            <Box sx={{bgcolor: "white", p: 3, borderRadius: 4}}>
+                                <Typography variant="h5" component={'h1'} fontWeight={'bold'}>Summary of counts</Typography>
+                                <Stack direction={'row'} gap={1} alignItems={'center'}>
+                                    <Box flex={1} sx={{position: 'relative', minWidth: 200, p: 4}}>
+                                        <CircularChart value={count_summary}></CircularChart>
+                                    </Box>
+                                    <Box flex={2}>
+                                        <ProgressChart value={count_summary?.sx}></ProgressChart>
+                                        <ProgressChart value={count_summary?.ag}></ProgressChart>
+                                    </Box>
+                                </Stack>
+                            </Box>
                         </Stack>
                     </Box>
                     <Stack flex={1} direction={'column'} gap={2} p={4} sx={{bgcolor: "white", borderRadius: 4, overflow: 'auto', position: 'relative'}}>
                         <Box mx={2} my={3} className="info_box" sx={{borderRadius: 4, bgcolor: "white"}}>
-                            <Typography variant="body1" className="label">Passenger Traffic</Typography>
+                            <Typography variant="body1" className="label">Trip Traffic</Typography>
                             <Box pt={4} pb={2}>
                                 <LineChart
                                     grid={{horizontal: true, vertical: true}}
