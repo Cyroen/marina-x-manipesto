@@ -5,7 +5,7 @@ import { Avatar, Box, Button, Chip, Container, IconButton, Stack, Tab, Table, Ta
 import '@/app/styles/trip.scss'
 import '@/app/styles/global.scss'
 import Link from "next/link";
-import { FilterAlt, Fullscreen, OpenInFull, Search } from "@mui/icons-material";
+import { ChevronRight, FilterAlt, Fullscreen, OpenInFull, Search } from "@mui/icons-material";
 import Image from "next/image";
 import { LineChart } from "@mui/x-charts";
 import { Fragment, useState } from "react";
@@ -257,7 +257,10 @@ export default function DashboardTripList() {
                 <Stack flex={2} direction={'column'} gap={2} maxWidth={{xs: 'none', lg: '50%'}} width={'100%'}>
                     <Box flex={1} p={4} sx={{bgcolor: "primary.main", borderRadius: 4}}>
                         <Stack borderRadius={4} gap={4}>
-                            <Typography variant="h4" component={'h1'} fontWeight={'bold'} color="white">Most Recent Trip</Typography>
+                            <Stack gap={2} direction={'row'} alignItems={'center'} flex={1}>
+                                <Typography variant="h4" component={'h1'} fontWeight={'bold'} color="white">Most Recent Trip</Typography>
+                                <Button LinkComponent={Link} href="/trip1?v=Jordan-Wharf" variant="text" sx={{color: "#fff", ml: 'auto'}} color="#fff" endIcon={<ChevronRight></ChevronRight>}>More Details</Button>
+                            </Stack>
                             <Stack mt={2} flexWrap={'wrap'} direction={'row'} position={'relative'} height={{xs: 'auto', lg: 200}} gap={1}>
                                 <Box sx={{position: 'relative', flex: 2, borderRadius: 4, overflow: 'hidden', minWidth: 200, width: '100%', height: {xs: 200, lg: 'auto'}}}>
                                     <Image style={{objectFit: 'cover'}} src="/images/placeholders/landscape.jpg" alt="Placeholder" fill></Image>

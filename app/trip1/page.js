@@ -14,7 +14,7 @@ export default function Home() {
 
   return (
     <Fragment>
-        <NavBar return_link="/" title={`[DEMO] Full Trip Preview - ${search.replace("-", "")}`}></NavBar>
+        <NavBar return_link="/" title={`[DEMO] Full Trip Preview - ${search.replace("-", " aa")}`}></NavBar>
         <Box mt={15}>
             <DashboardTrip></DashboardTrip>
         </Box>
