@@ -8,6 +8,8 @@ import Link from "next/link";
 import { FilterAlt, Fullscreen, OpenInFull, Search } from "@mui/icons-material";
 import Image from "next/image";
 import { LineChart } from "@mui/x-charts";
+import { Fragment, useState } from "react";
+import PropTypes from "prop-types";
 
 function TripBox({link}){
 
@@ -26,7 +28,7 @@ function TripBox({link}){
                     address: "Parola Ferry Terminal, Iloilo City",
                     date: new Date()
                 },
-            }
+    }
 
     return <Box p={2} sx={{borderRadius: 4, boxShadow: "1px 4px 9px 4px rgba(0, 0, 0, 0.1)", bgcolor: "white"}}>
             <Stack direction={'row'} justifyContent={'space-between'} alignItems={'center'}>
@@ -77,7 +79,134 @@ function TripBox({link}){
         </Box>
 }
 
+function ProgressChart(props){
+    const {value} = props;
+    let sum = value.reduce((a, b) => a + b?.c, 0); // Calculate total sum: 150
+    let normalized = value.map(n => (n?.c / sum) * 100);
+
+    return <Stack my={3} width={'100%'}>
+        <Stack flexDirection={'row'} width={'100%'} height={15} position={'relative'} sx={{ borderRadius: 20, overflow: 'hidden'}}> 
+            {normalized && normalized.map((a, i) => (
+                <Box flex={a} key={i} sx={{height: 15, bgcolor: `${value[i]?.clr}`}}></Box>
+            ))}
+        </Stack>
+        <Stack direction={'row'} gap={3} flexWrap={'wrap'} justifyContent={'center'} mt={2}>
+            {value && value.map((a, i) => (
+                <Box key={i} sx={{
+                    display: 'flex',
+                    flexDirection: 'row',
+                    alignItems: 'flex-start',
+                    '&::before': {
+                        content: "''",
+                        display: 'block',
+                        width: 10,
+                        height: 10,
+                        bgcolor: `${a?.clr}`,
+                        borderRadius: "50%",
+                        mr: 1,
+                        mt: '6px'
+                    }
+                }}>
+                    <Stack direction={'column'}>
+                        <Typography variant="body1" component={'div'} color={`${a?.clr}`}>{a?.l}</Typography>
+                        <Typography variant="h6" component={'div'}>{a?.c}</Typography>
+                    </Stack>
+                </Box>
+            ))}
+        </Stack>
+    </Stack>
+}
+
+function CircularChart(props){
+
+    const {value} = props;
+
+    return <Fragment>
+        <CircularProgress value={(value?.t*100)/value?.m} enableTrackSlot variant='determinate' size={'100%'}></CircularProgress>
+        <Box sx={{position: 'absolute', inset: 0, margin: 'auto', width: 'max-content', height: 'max-content'}}>
+            <Typography textAlign={'center'} variant="h5" fontWeight={'bold'} component={'div'}>{value?.t}</Typography>
+            <Typography textAlign={'center'} variant="body1" component={'div'}>out of {value?.m} pax</Typography>
+        </Box>
+    </Fragment>
+}
+
 export default function DashboardTripList() {
+
+    const [tabVal, setTabVal] = useState(0);
+        
+    function a11yProps(index) {
+        return {
+            id: `simple-tab-${index}`,
+            'aria-controls': `simple-tabpanel-${index}`,
+        };
+    }
+
+    function CustomTabPanel(props) {
+        const { children, value, index, ...other } = props;
+
+        return (
+            <div
+                role="tabpanel"
+                hidden={value !== index}
+                id={`simple-tabpanel-${index}`}
+                aria-labelledby={`simple-tab-${index}`}
+                {...other}
+                style={{width: '100%'}}
+            >
+                {value === index && <Box width="100%" mt={3}>{children}</Box>}
+            </div>
+        );
+    }
+
+    CustomTabPanel.propTypes = {
+        children: PropTypes.node,
+        index: PropTypes.number.isRequired,
+        value: PropTypes.number.isRequired,
+    };
+
+    const handleChange = (event, newValue) => {
+        setTabVal(newValue);
+    };
+
+    const count_summary = {
+        t: 40,
+        m: 150,
+        sx: [
+            {
+                l: "Male",
+                c: 20,
+                clr: '#8b77fd'
+            },
+            {
+                l: "Female",
+                c: 20,
+                clr: '#75dbff'
+            }
+        ],
+        ag: [
+            {
+                l: "Infants",
+                c: 1,
+                clr: '#8b77fd'
+            },
+            {
+                l: "Children",
+                c: 4,
+                clr: '#75dbff'
+            },
+            {
+                l: "Adults",
+                c: 30,
+                clr: '#ffbb25'
+            },
+            {
+                l: "Seniors",
+                c: 5,
+                clr: '#98c85a'
+            },
+        ]
+    }
+
     return (
         <Container maxWidth="xl">
             <Stack direction={'row'} gap={2} flexWrap={'wrap'}>
@@ -206,27 +335,48 @@ export default function DashboardTripList() {
                             </Box>
                         </Stack>
                     </Box>
-                    <Stack flex={1} direction={'column'} gap={2} sx={{bgcolor: "white", borderRadius: 4, overflow: 'auto', position: 'relative'}}>
-                        <Box mx={2} my={3} className="info_box" sx={{borderRadius: 4, bgcolor: "white"}}>
-                            <Typography variant="body1" className="label">Passenger Traffic</Typography>
-                            <Box pt={4} pb={2}>
-                                <LineChart
-                                    grid={{horizontal: true, vertical: true}}
-                                    xAxis={[{ data: [1, 2, 3, 5, 8, 10] }]}
-                                    series={[
-                                        {
-                                            data: [2, 5.5, 2, 8.5, 1.5, 5],
-                                            label: 'Passenger Traffic'
-                                        },
-                                        {
-                                            data: [5, 1.5, 4, 2.5, 5.5, 101],
-                                            label: 'Trip Traffic'
-                                        },
-                                    ]}
-                                    height={200}
-                                />
+                    <Stack flex={1} direction={'column'} gap={2} p={4} sx={{bgcolor: "white", borderRadius: 4, overflow: 'auto', position: 'relative'}}>
+                        <Tabs variant="scrollable" slotProps={{
+                            root: {
+                                sx: {
+                                    px: 2,
+                                }
+                            },
+                        }} value={tabVal} onChange={handleChange} aria-label="Tabs">
+                            <Tab label="Summary" {...a11yProps(0)} />
+                            <Tab label="Statistics" {...a11yProps(1)} />
+                        </Tabs>
+                        <CustomTabPanel index={0} value={tabVal}>
+                            <Stack mx={3} direction={'column'} gap={1} alignItems={'center'}>
+                                <Box sx={{position: 'relative', width: 200}}>
+                                    <CircularChart value={count_summary}></CircularChart>
+                                </Box>
+                                <ProgressChart value={count_summary?.sx}></ProgressChart>
+                                <ProgressChart value={count_summary?.ag}></ProgressChart>
+                            </Stack>
+                        </CustomTabPanel>
+                        <CustomTabPanel index={1} value={tabVal}>
+                            <Box mx={2} my={3} className="info_box" sx={{borderRadius: 4, bgcolor: "white"}}>
+                                <Typography variant="body1" className="label">Passenger Traffic</Typography>
+                                <Box pt={4} pb={2}>
+                                    <LineChart
+                                        grid={{horizontal: true, vertical: true}}
+                                        xAxis={[{ data: [1, 2, 3, 5, 8, 10] }]}
+                                        series={[
+                                            {
+                                                data: [2, 5.5, 2, 8.5, 1.5, 5],
+                                                label: 'Passenger Traffic'
+                                            },
+                                            {
+                                                data: [5, 1.5, 4, 2.5, 5.5, 101],
+                                                label: 'Trip Traffic'
+                                            },
+                                        ]}
+                                        height={200}
+                                    />
+                                </Box>
                             </Box>
-                        </Box>
+                        </CustomTabPanel>
                     </Stack>
                 </Stack>
             </Stack>
