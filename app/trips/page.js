@@ -7,7 +7,7 @@ export default function Home() {
   return (
     <Fragment>
         <NavBar return_link="/" title="[DEMO] List of Trips"></NavBar>
-        <Box mt={15}>
+        <Box my={15}>
           <DashboardTripList></DashboardTripList>
         </Box>
     </Fragment>
