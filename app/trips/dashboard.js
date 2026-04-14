@@ -261,21 +261,21 @@ export default function DashboardTripList() {
                     <Box flex={1} p={4} sx={{bgcolor: "primary.main", borderRadius: 4}}>
                         <Stack borderRadius={4} gap={4}>
                             <Stack gap={2} direction={'row'} alignItems={'center'} flex={1}>
-                                <Typography variant="h4" component={'h1'} fontWeight={'bold'} color="white">Most Recent Trip</Typography>
+                                <Typography variant="h5" component={'h1'} fontWeight={'bold'} color="white">Recent Trip Record</Typography>
                                 <Button LinkComponent={Link} href="/trip1?v=Jordan-Wharf" variant="text" sx={{color: "#fff", ml: 'auto'}} color="#fff" endIcon={<ChevronRight></ChevronRight>}>More Details</Button>
                             </Stack>
                             <Stack direction={'row'} flex={1} gap={2}>
-                                <Stack flex={1} flexWrap={'wrap'} direction={'row'} position={'relative'} height={{xs: 'auto', lg: 200}} gap={1}>
-                                    <Box p={3} sx={{position: 'relative', flex: 2, borderRadius: 4, overflow: 'hidden', minWidth: 200, width: '100%', height: {xs: 200, lg: 'auto'}, display: 'flex'}}>
-                                        <Image style={{objectFit: 'cover'}} src="/images/placeholders/landscape.jpg" alt="Placeholder" fill></Image>
+                                <Stack sx={{borderRadius: 4, overflow: 'hidden'}} flex={1} flexWrap={'wrap'} direction={'row'} position={'relative'} gap={1}>
+                                    <Box className="trip_record_vessel" p={3}>
+                                        <Image style={{objectFit: 'cover'}} src="/images/ferry1.webp" alt="Placeholder" fill></Image>
                                         <Stack mt={'auto'} zIndex={100} position={'relative'} direction={'column'}>
-                                            <Typography variant="h5" fontWeight={'bold'}>Vessel Name</Typography>
-                                            <Typography variant="body1">SG8 Maritime, Inc.</Typography>
+                                            <Typography color="white" variant="h5" fontWeight={'bold'}>Vessel Name</Typography>
+                                            <Typography color="white" variant="body1">SG8 Maritime, Inc.</Typography>
                                         </Stack>
                                     </Box>
                                 </Stack>
                                 <Box flex={1} className="info_box white" p={2} borderRadius={4} sx={{boxShadow: "1px 4px 9px 4px rgba(0, 0, 0, 0.05)"}}>
-                                    <Typography variant="body1" className="label">Route</Typography>
+                                    <Typography variant="body1" className="label">Voyage Route</Typography>
                                     <Box p={2} sx={{borderRadius: 4, bgcolor: 'primary.main'}}>
                                         <Stack direction={'column'} gap={1}>
                                             <Stack className="info_dot white" flex={1} direction={'row'} gap={1}>
@@ -284,8 +284,7 @@ export default function DashboardTripList() {
                                                     <Typography color="white" variant="subtitle2" sx={{opacity: 0.6}}>7:20 AM</Typography>
                                                 </Box>
                                                 <Box flex={3}>
-                                                    <Typography color="white" variant="body1">Arrival</Typography>
-                                                    <Typography color="white" variant="subtitle2" sx={{opacity: 0.6}}>Parola Ferry Terminal</Typography>
+                                                    <Typography color="white" variant="body1">Parola Ferry Terminal</Typography>
                                                 </Box>
                                             </Stack>
                                             <Stack className="info_dot white" flex={1} direction={'row'} gap={1}>
@@ -294,50 +293,32 @@ export default function DashboardTripList() {
                                                     <Typography color="white" variant="subtitle2" sx={{opacity: 0.6}}>7:00 AM</Typography>
                                                 </Box>
                                                 <Box flex={3}>
-                                                    <Typography color="white" variant="body1">Origin</Typography>
-                                                    <Typography color="white" variant="subtitle2" sx={{opacity: 0.6}}>Jordan Wharf, Jordan, Guimaras</Typography>
+                                                    <Typography color="white" variant="body1">Jordan Wharf, Jordan, Guimaras</Typography>
                                                 </Box>
+                                            </Stack>
+                                            <Box sx={{borderBottom: "3px dashed #fff", width: '100%', height: 2, my: 1}}></Box>
+                                            <Stack direction={'row'} alignItems={'center'}>
+                                                <Stack direction={'row'} alignItems={'center'} gap={1} flexWrap={'wrap'}>
+                                                    <Avatar sx={{width: 50, height: 50}}></Avatar>
+                                                    <Box>
+                                                        <Typography variant="body1" color="#fff" fontWeight={800} gutterBottom={false}>Velazquez Olson</Typography>
+                                                        <Typography variant="subtitle2" color="#fff">0999271531</Typography>
+                                                    </Box>
+                                                </Stack>
+                                                <Chip className="chip_anchor-top-left" variant="filled" label="Master" size="large" sx={{color: "primary.main", bgcolor: "white", ml: 'auto', mb: 'auto'}}></Chip>
                                             </Stack>
                                         </Stack>
                                     </Box>
                                 </Box>
                             </Stack>
-                            <Box py={2} px={4} borderRadius={4} sx={{ bgcolor: '#fff', position: 'relative'}}>
-                                <Stack mb={2} direction={'row'} alignItems={'center'}>
-                                    <Stack direction={'row'} alignItems={'center'} gap={2} flexWrap={'wrap'}>
-                                        <Avatar sx={{width: 50, height: 50}}></Avatar>
-                                        <Box>
-                                            <Typography variant="body1" fontWeight={800} gutterBottom={false}>Velazquez Olson</Typography>
-                                            <Typography variant="subtitle2">0999271531</Typography>
-                                        </Box>
-                                    </Stack>
-                                    <Chip className="chip_anchor-top-left" variant="filled" label="Master" size="large" sx={{color: "white", bgcolor: "primary.main", ml: 'auto', mb: 'auto'}}></Chip>
-                                </Stack>
-                                <Box sx={{display: 'grid', gridTemplateColumns: {xs: '1fr', md: '1fr 1fr'}, gridTemplateRows: {xs: '1fr', md: '1fr 1fr'}, gap: 2}}>
-                                    <Box flex={1} minWidth={'max-content'}>
-                                        <Typography variant="subtitle2">License No.</Typography>
-                                        <Typography variant="h6" fontWeight={800}>101-05223</Typography>
-                                    </Box>
-                                    <Box flex={1} minWidth={'max-content'}>
-                                        <Typography variant="subtitle2">Issued By</Typography>
-                                        <Typography variant="h6" fontWeight={800}>MROVI</Typography>
-                                    </Box>
-                                    <Box flex={1} minWidth={'max-content'}>
-                                        <Typography variant="subtitle2">Issued On</Typography>
-                                        <Typography variant="h6" fontWeight={800}>1/12/1999</Typography>
-                                    </Box>
-                                    <Box flex={1} minWidth={'max-content'}>
-                                        <Typography variant="subtitle2">Expiry</Typography>
-                                        <Typography variant="h6" fontWeight={800}>1/12/2026</Typography>
-                                    </Box>
-                                </Box>
-                            </Box>
-                            <Stack sx={{bgcolor: "white", p: 3, borderRadius: 4}} direction={'column'} gap={1} alignItems={'center'}>
-                                <Box sx={{position: 'relative', width: 200}}>
+                            <Stack sx={{bgcolor: "white", p: 3, borderRadius: 4}} direction={'row'} gap={1} alignItems={'center'}>
+                                <Box flex={1} sx={{position: 'relative', minWidth: 200, p: 4}}>
                                     <CircularChart value={count_summary}></CircularChart>
                                 </Box>
-                                <ProgressChart value={count_summary?.sx}></ProgressChart>
-                                <ProgressChart value={count_summary?.ag}></ProgressChart>
+                                <Box flex={2}>
+                                    <ProgressChart value={count_summary?.sx}></ProgressChart>
+                                    <ProgressChart value={count_summary?.ag}></ProgressChart>
+                                </Box>
                             </Stack>
                         </Stack>
                     </Box>
